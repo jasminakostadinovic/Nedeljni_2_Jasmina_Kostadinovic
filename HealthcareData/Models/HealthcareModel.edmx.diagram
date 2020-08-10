@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0f9bb43cb5fc49608c72ffa670855d7f" Name="Diagram1">
+        <EntityTypeShape EntityType="HealthcareSoftwareModel.tblClinicDoctor" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthcareSoftwareModel.tblClinicMaintenance" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthcareSoftwareModel.tblClinicManager" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthcareSoftwareModel.tblClinicPatient" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthcareSoftwareModel.tblHealthcareInstitution" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthcareSoftwareModel.tblHealthcareUserData" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HealthcareSoftwareModel.tblSickLeaveRequirement" Width="1.5" PointX="9.75" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="HealthcareSoftwareModel.FK__tblClinic__Clini__6EF57B66" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthcareSoftwareModel.FK__tblClinic__Clini__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthcareSoftwareModel.FK__tblClinic__UserD__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthcareSoftwareModel.FK__tblClinic__UserD__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthcareSoftwareModel.FK__tblClinic__UserD__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthcareSoftwareModel.FK__tblClinic__UserD__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="HealthcareSoftwareModel.FK__tblSickLe__Clini__76969D2E" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HealthcareSoftwareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblClinicDoctor">
+          <Key>
+            <PropertyRef Name="ClinicDoctorID" />
+          </Key>
+          <Property Name="ClinicDoctorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserDataID" Type="int" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="BankAccountNo" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Department" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Shift" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsInChargeOfAdmissionOfPatients" Type="bit" Nullable="false" />
+          <Property Name="ClinicManagerID" Type="int" />
+        </EntityType>
+        <EntityType Name="tblClinicMaintenance">
+          <Key>
+            <PropertyRef Name="ClinicMaintenanceID" />
+          </Key>
+          <Property Name="ClinicMaintenanceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserDataID" Type="int" Nullable="false" />
+          <Property Name="HasExpansionPermit" Type="bit" Nullable="false" />
+          <Property Name="IsResponsibleForDisabledAccess" Type="bit" Nullable="false" />
+          <Property Name="IsResponsibleForAmbulanceAccess" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblClinicManager">
+          <Key>
+            <PropertyRef Name="ClinicManagerID" />
+          </Key>
+          <Property Name="ClinicManagerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserDataID" Type="int" Nullable="false" />
+          <Property Name="FloorNumber" Type="int" Nullable="false" />
+          <Property Name="MaxCountOfDoctors" Type="int" Nullable="false" />
+          <Property Name="MinCountOfRooms" Type="int" Nullable="false" />
+          <Property Name="OmissionsCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblClinicPatient">
+          <Key>
+            <PropertyRef Name="ClinicPatientID" />
+          </Key>
+          <Property Name="ClinicPatientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserDataID" Type="int" Nullable="false" />
+          <Property Name="ClinicDoctorID" Type="int" />
+          <Property Name="HealthInsuranceCardNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumberOfDoctor" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="tblHealthcareInstitution">
+          <Key>
+            <PropertyRef Name="HealthcareInstitutionID" />
+          </Key>
+          <Property Name="HealthcareInstitutionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompletionDate" Type="datetime" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Owner" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="NumberOfFloors" Type="int" Nullable="false" />
+          <Property Name="NumberOfPersonsPerFloor" Type="int" Nullable="false" />
+          <Property Name="HasBalcony" Type="bit" Nullable="false" />
+          <Property Name="HasBackyard" Type="bit" Nullable="false" />
+          <Property Name="NumberOfAmbulanceAccess" Type="int" />
+          <Property Name="NumberOfDisabledPersonsAccess" Type="int" />
+        </EntityType>
+        <EntityType Name="tblHealthcareUserData">
+          <Key>
+            <PropertyRef Name="UserDataID" />
+          </Key>
+          <Property Name="UserDataID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GivenName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IDCardNo" Type="nvarchar" MaxLength="9" Nullable="false" />
+          <Property Name="Sex" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+          <Property Name="Citizenship" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="char" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSickLeaveRequirement">
+          <Key>
+            <PropertyRef Name="SickLeaveRequirementID" />
+          </Key>
+          <Property Name="SickLeaveRequirementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClinicPatientID" Type="int" Nullable="false" />
+          <Property Name="RequirementDate" Type="datetime" Nullable="false" />
+          <Property Name="RequirementCause" Type="nvarchar" MaxLength="500" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsEmergency" Type="bit" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblClinic__Clini__6EF57B66">
+          <End Role="tblClinicManager" Type="Self.tblClinicManager" Multiplicity="0..1" />
+          <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClinicManager">
+              <PropertyRef Name="ClinicManagerID" />
+            </Principal>
+            <Dependent Role="tblClinicDoctor">
+              <PropertyRef Name="ClinicManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__Clini__73BA3083">
+          <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="0..1" />
+          <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClinicDoctor">
+              <PropertyRef Name="ClinicDoctorID" />
+            </Principal>
+            <Dependent Role="tblClinicPatient">
+              <PropertyRef Name="ClinicDoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__UserD__66603565">
+          <End Role="tblHealthcareUserData" Type="Self.tblHealthcareUserData" Multiplicity="1" />
+          <End Role="tblClinicMaintenance" Type="Self.tblClinicMaintenance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHealthcareUserData">
+              <PropertyRef Name="UserDataID" />
+            </Principal>
+            <Dependent Role="tblClinicMaintenance">
+              <PropertyRef Name="UserDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__UserD__693CA210">
+          <End Role="tblHealthcareUserData" Type="Self.tblHealthcareUserData" Multiplicity="1" />
+          <End Role="tblClinicManager" Type="Self.tblClinicManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHealthcareUserData">
+              <PropertyRef Name="UserDataID" />
+            </Principal>
+            <Dependent Role="tblClinicManager">
+              <PropertyRef Name="UserDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__UserD__6E01572D">
+          <End Role="tblHealthcareUserData" Type="Self.tblHealthcareUserData" Multiplicity="1" />
+          <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHealthcareUserData">
+              <PropertyRef Name="UserDataID" />
+            </Principal>
+            <Dependent Role="tblClinicDoctor">
+              <PropertyRef Name="UserDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__UserD__72C60C4A">
+          <End Role="tblHealthcareUserData" Type="Self.tblHealthcareUserData" Multiplicity="1" />
+          <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHealthcareUserData">
+              <PropertyRef Name="UserDataID" />
+            </Principal>
+            <Dependent Role="tblClinicPatient">
+              <PropertyRef Name="UserDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSickLe__Clini__76969D2E">
+          <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="1" />
+          <End Role="tblSickLeaveRequirement" Type="Self.tblSickLeaveRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClinicPatient">
+              <PropertyRef Name="ClinicPatientID" />
+            </Principal>
+            <Dependent Role="tblSickLeaveRequirement">
+              <PropertyRef Name="ClinicPatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HealthcareSoftwareModelStoreContainer">
+          <EntitySet Name="tblClinicDoctor" EntityType="Self.tblClinicDoctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClinicMaintenance" EntityType="Self.tblClinicMaintenance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClinicManager" EntityType="Self.tblClinicManager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblClinicPatient" EntityType="Self.tblClinicPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHealthcareInstitution" EntityType="Self.tblHealthcareInstitution" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblHealthcareUserData" EntityType="Self.tblHealthcareUserData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSickLeaveRequirement" EntityType="Self.tblSickLeaveRequirement" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblClinic__Clini__6EF57B66" Association="Self.FK__tblClinic__Clini__6EF57B66">
+            <End Role="tblClinicManager" EntitySet="tblClinicManager" />
+            <End Role="tblClinicDoctor" EntitySet="tblClinicDoctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__Clini__73BA3083" Association="Self.FK__tblClinic__Clini__73BA3083">
+            <End Role="tblClinicDoctor" EntitySet="tblClinicDoctor" />
+            <End Role="tblClinicPatient" EntitySet="tblClinicPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__UserD__66603565" Association="Self.FK__tblClinic__UserD__66603565">
+            <End Role="tblHealthcareUserData" EntitySet="tblHealthcareUserData" />
+            <End Role="tblClinicMaintenance" EntitySet="tblClinicMaintenance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__UserD__693CA210" Association="Self.FK__tblClinic__UserD__693CA210">
+            <End Role="tblHealthcareUserData" EntitySet="tblHealthcareUserData" />
+            <End Role="tblClinicManager" EntitySet="tblClinicManager" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__UserD__6E01572D" Association="Self.FK__tblClinic__UserD__6E01572D">
+            <End Role="tblHealthcareUserData" EntitySet="tblHealthcareUserData" />
+            <End Role="tblClinicDoctor" EntitySet="tblClinicDoctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__UserD__72C60C4A" Association="Self.FK__tblClinic__UserD__72C60C4A">
+            <End Role="tblHealthcareUserData" EntitySet="tblHealthcareUserData" />
+            <End Role="tblClinicPatient" EntitySet="tblClinicPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSickLe__Clini__76969D2E" Association="Self.FK__tblSickLe__Clini__76969D2E">
+            <End Role="tblClinicPatient" EntitySet="tblClinicPatient" />
+            <End Role="tblSickLeaveRequirement" EntitySet="tblSickLeaveRequirement" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HealthcareSoftwareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblClinicDoctor">
+          <Key>
+            <PropertyRef Name="ClinicDoctorID" />
+          </Key>
+          <Property Name="ClinicDoctorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserDataID" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BankAccountNo" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Shift" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsInChargeOfAdmissionOfPatients" Type="Boolean" Nullable="false" />
+          <Property Name="ClinicManagerID" Type="Int32" />
+          <NavigationProperty Name="tblClinicManager" Relationship="Self.FK__tblClinic__Clini__6EF57B66" FromRole="tblClinicDoctor" ToRole="tblClinicManager" />
+          <NavigationProperty Name="tblClinicPatients" Relationship="Self.FK__tblClinic__Clini__73BA3083" FromRole="tblClinicDoctor" ToRole="tblClinicPatient" />
+          <NavigationProperty Name="tblHealthcareUserData" Relationship="Self.FK__tblClinic__UserD__6E01572D" FromRole="tblClinicDoctor" ToRole="tblHealthcareUserData" />
+        </EntityType>
+        <EntityType Name="tblClinicMaintenance">
+          <Key>
+            <PropertyRef Name="ClinicMaintenanceID" />
+          </Key>
+          <Property Name="ClinicMaintenanceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserDataID" Type="Int32" Nullable="false" />
+          <Property Name="HasExpansionPermit" Type="Boolean" Nullable="false" />
+          <Property Name="IsResponsibleForDisabledAccess" Type="Boolean" Nullable="false" />
+          <Property Name="IsResponsibleForAmbulanceAccess" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblHealthcareUserData" Relationship="Self.FK__tblClinic__UserD__66603565" FromRole="tblClinicMaintenance" ToRole="tblHealthcareUserData" />
+        </EntityType>
+        <EntityType Name="tblClinicManager">
+          <Key>
+            <PropertyRef Name="ClinicManagerID" />
+          </Key>
+          <Property Name="ClinicManagerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserDataID" Type="Int32" Nullable="false" />
+          <Property Name="FloorNumber" Type="Int32" Nullable="false" />
+          <Property Name="MaxCountOfDoctors" Type="Int32" Nullable="false" />
+          <Property Name="MinCountOfRooms" Type="Int32" Nullable="false" />
+          <Property Name="OmissionsCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblClinicDoctors" Relationship="Self.FK__tblClinic__Clini__6EF57B66" FromRole="tblClinicManager" ToRole="tblClinicDoctor" />
+          <NavigationProperty Name="tblHealthcareUserData" Relationship="Self.FK__tblClinic__UserD__693CA210" FromRole="tblClinicManager" ToRole="tblHealthcareUserData" />
+        </EntityType>
+        <EntityType Name="tblClinicPatient">
+          <Key>
+            <PropertyRef Name="ClinicPatientID" />
+          </Key>
+          <Property Name="ClinicPatientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserDataID" Type="Int32" Nullable="false" />
+          <Property Name="ClinicDoctorID" Type="Int32" />
+          <Property Name="HealthInsuranceCardNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumberOfDoctor" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblClinicDoctor" Relationship="Self.FK__tblClinic__Clini__73BA3083" FromRole="tblClinicPatient" ToRole="tblClinicDoctor" />
+          <NavigationProperty Name="tblHealthcareUserData" Relationship="Self.FK__tblClinic__UserD__72C60C4A" FromRole="tblClinicPatient" ToRole="tblHealthcareUserData" />
+          <NavigationProperty Name="tblSickLeaveRequirements" Relationship="Self.FK__tblSickLe__Clini__76969D2E" FromRole="tblClinicPatient" ToRole="tblSickLeaveRequirement" />
+        </EntityType>
+        <EntityType Name="tblHealthcareInstitution">
+          <Key>
+            <PropertyRef Name="HealthcareInstitutionID" />
+          </Key>
+          <Property Name="HealthcareInstitutionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompletionDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NumberOfFloors" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfPersonsPerFloor" Type="Int32" Nullable="false" />
+          <Property Name="HasBalcony" Type="Boolean" Nullable="false" />
+          <Property Name="HasBackyard" Type="Boolean" Nullable="false" />
+          <Property Name="NumberOfAmbulanceAccess" Type="Int32" />
+          <Property Name="NumberOfDisabledPersonsAccess" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tblHealthcareUserData">
+          <Key>
+            <PropertyRef Name="UserDataID" />
+          </Key>
+          <Property Name="UserDataID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GivenName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDCardNo" Type="String" MaxLength="9" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Citizenship" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="1000" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblClinicDoctors" Relationship="Self.FK__tblClinic__UserD__6E01572D" FromRole="tblHealthcareUserData" ToRole="tblClinicDoctor" />
+          <NavigationProperty Name="tblClinicMaintenances" Relationship="Self.FK__tblClinic__UserD__66603565" FromRole="tblHealthcareUserData" ToRole="tblClinicMaintenance" />
+          <NavigationProperty Name="tblClinicManagers" Relationship="Self.FK__tblClinic__UserD__693CA210" FromRole="tblHealthcareUserData" ToRole="tblClinicManager" />
+          <NavigationProperty Name="tblClinicPatients" Relationship="Self.FK__tblClinic__UserD__72C60C4A" FromRole="tblHealthcareUserData" ToRole="tblClinicPatient" />
+        </EntityType>
+        <EntityType Name="tblSickLeaveRequirement">
+          <Key>
+            <PropertyRef Name="SickLeaveRequirementID" />
+          </Key>
+          <Property Name="SickLeaveRequirementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicPatientID" Type="Int32" Nullable="false" />
+          <Property Name="RequirementDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RequirementCause" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsEmergency" Type="Boolean" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="tblClinicPatient" Relationship="Self.FK__tblSickLe__Clini__76969D2E" FromRole="tblSickLeaveRequirement" ToRole="tblClinicPatient" />
+        </EntityType>
+        <Association Name="FK__tblClinic__Clini__6EF57B66">
+          <End Role="tblClinicManager" Type="Self.tblClinicManager" Multiplicity="0..1" />
+          <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClinicManager">
+              <PropertyRef Name="ClinicManagerID" />
+            </Principal>
+            <Dependent Role="tblClinicDoctor">
+              <PropertyRef Name="ClinicManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__Clini__73BA3083">
+          <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="0..1" />
+          <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClinicDoctor">
+              <PropertyRef Name="ClinicDoctorID" />
+            </Principal>
+            <Dependent Role="tblClinicPatient">
+              <PropertyRef Name="ClinicDoctorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__UserD__6E01572D">
+          <End Role="tblHealthcareUserData" Type="Self.tblHealthcareUserData" Multiplicity="1" />
+          <End Role="tblClinicDoctor" Type="Self.tblClinicDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHealthcareUserData">
+              <PropertyRef Name="UserDataID" />
+            </Principal>
+            <Dependent Role="tblClinicDoctor">
+              <PropertyRef Name="UserDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__UserD__66603565">
+          <End Role="tblHealthcareUserData" Type="Self.tblHealthcareUserData" Multiplicity="1" />
+          <End Role="tblClinicMaintenance" Type="Self.tblClinicMaintenance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHealthcareUserData">
+              <PropertyRef Name="UserDataID" />
+            </Principal>
+            <Dependent Role="tblClinicMaintenance">
+              <PropertyRef Name="UserDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__UserD__693CA210">
+          <End Role="tblHealthcareUserData" Type="Self.tblHealthcareUserData" Multiplicity="1" />
+          <End Role="tblClinicManager" Type="Self.tblClinicManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHealthcareUserData">
+              <PropertyRef Name="UserDataID" />
+            </Principal>
+            <Dependent Role="tblClinicManager">
+              <PropertyRef Name="UserDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblClinic__UserD__72C60C4A">
+          <End Role="tblHealthcareUserData" Type="Self.tblHealthcareUserData" Multiplicity="1" />
+          <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblHealthcareUserData">
+              <PropertyRef Name="UserDataID" />
+            </Principal>
+            <Dependent Role="tblClinicPatient">
+              <PropertyRef Name="UserDataID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSickLe__Clini__76969D2E">
+          <End Role="tblClinicPatient" Type="Self.tblClinicPatient" Multiplicity="1" />
+          <End Role="tblSickLeaveRequirement" Type="Self.tblSickLeaveRequirement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblClinicPatient">
+              <PropertyRef Name="ClinicPatientID" />
+            </Principal>
+            <Dependent Role="tblSickLeaveRequirement">
+              <PropertyRef Name="ClinicPatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HealthcareSoftwareEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblClinicDoctors" EntityType="Self.tblClinicDoctor" />
+          <EntitySet Name="tblClinicMaintenances" EntityType="Self.tblClinicMaintenance" />
+          <EntitySet Name="tblClinicManagers" EntityType="Self.tblClinicManager" />
+          <EntitySet Name="tblClinicPatients" EntityType="Self.tblClinicPatient" />
+          <EntitySet Name="tblHealthcareInstitutions" EntityType="Self.tblHealthcareInstitution" />
+          <EntitySet Name="tblHealthcareUserDatas" EntityType="Self.tblHealthcareUserData" />
+          <EntitySet Name="tblSickLeaveRequirements" EntityType="Self.tblSickLeaveRequirement" />
+          <AssociationSet Name="FK__tblClinic__Clini__6EF57B66" Association="Self.FK__tblClinic__Clini__6EF57B66">
+            <End Role="tblClinicManager" EntitySet="tblClinicManagers" />
+            <End Role="tblClinicDoctor" EntitySet="tblClinicDoctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__Clini__73BA3083" Association="Self.FK__tblClinic__Clini__73BA3083">
+            <End Role="tblClinicDoctor" EntitySet="tblClinicDoctors" />
+            <End Role="tblClinicPatient" EntitySet="tblClinicPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__UserD__6E01572D" Association="Self.FK__tblClinic__UserD__6E01572D">
+            <End Role="tblHealthcareUserData" EntitySet="tblHealthcareUserDatas" />
+            <End Role="tblClinicDoctor" EntitySet="tblClinicDoctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__UserD__66603565" Association="Self.FK__tblClinic__UserD__66603565">
+            <End Role="tblHealthcareUserData" EntitySet="tblHealthcareUserDatas" />
+            <End Role="tblClinicMaintenance" EntitySet="tblClinicMaintenances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__UserD__693CA210" Association="Self.FK__tblClinic__UserD__693CA210">
+            <End Role="tblHealthcareUserData" EntitySet="tblHealthcareUserDatas" />
+            <End Role="tblClinicManager" EntitySet="tblClinicManagers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblClinic__UserD__72C60C4A" Association="Self.FK__tblClinic__UserD__72C60C4A">
+            <End Role="tblHealthcareUserData" EntitySet="tblHealthcareUserDatas" />
+            <End Role="tblClinicPatient" EntitySet="tblClinicPatients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSickLe__Clini__76969D2E" Association="Self.FK__tblSickLe__Clini__76969D2E">
+            <End Role="tblClinicPatient" EntitySet="tblClinicPatients" />
+            <End Role="tblSickLeaveRequirement" EntitySet="tblSickLeaveRequirements" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HealthcareSoftwareModelStoreContainer" CdmEntityContainer="HealthcareSoftwareEntities">
+          <EntitySetMapping Name="tblClinicDoctors">
+            <EntityTypeMapping TypeName="HealthcareSoftwareModel.tblClinicDoctor">
+              <MappingFragment StoreEntitySet="tblClinicDoctor">
+                <ScalarProperty Name="ClinicDoctorID" ColumnName="ClinicDoctorID" />
+                <ScalarProperty Name="UserDataID" ColumnName="UserDataID" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="BankAccountNo" ColumnName="BankAccountNo" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Shift" ColumnName="Shift" />
+                <ScalarProperty Name="IsInChargeOfAdmissionOfPatients" ColumnName="IsInChargeOfAdmissionOfPatients" />
+                <ScalarProperty Name="ClinicManagerID" ColumnName="ClinicManagerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClinicMaintenances">
+            <EntityTypeMapping TypeName="HealthcareSoftwareModel.tblClinicMaintenance">
+              <MappingFragment StoreEntitySet="tblClinicMaintenance">
+                <ScalarProperty Name="ClinicMaintenanceID" ColumnName="ClinicMaintenanceID" />
+                <ScalarProperty Name="UserDataID" ColumnName="UserDataID" />
+                <ScalarProperty Name="HasExpansionPermit" ColumnName="HasExpansionPermit" />
+                <ScalarProperty Name="IsResponsibleForDisabledAccess" ColumnName="IsResponsibleForDisabledAccess" />
+                <ScalarProperty Name="IsResponsibleForAmbulanceAccess" ColumnName="IsResponsibleForAmbulanceAccess" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClinicManagers">
+            <EntityTypeMapping TypeName="HealthcareSoftwareModel.tblClinicManager">
+              <MappingFragment StoreEntitySet="tblClinicManager">
+                <ScalarProperty Name="ClinicManagerID" ColumnName="ClinicManagerID" />
+                <ScalarProperty Name="UserDataID" ColumnName="UserDataID" />
+                <ScalarProperty Name="FloorNumber" ColumnName="FloorNumber" />
+                <ScalarProperty Name="MaxCountOfDoctors" ColumnName="MaxCountOfDoctors" />
+                <ScalarProperty Name="MinCountOfRooms" ColumnName="MinCountOfRooms" />
+                <ScalarProperty Name="OmissionsCount" ColumnName="OmissionsCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblClinicPatients">
+            <EntityTypeMapping TypeName="HealthcareSoftwareModel.tblClinicPatient">
+              <MappingFragment StoreEntitySet="tblClinicPatient">
+                <ScalarProperty Name="ClinicPatientID" ColumnName="ClinicPatientID" />
+                <ScalarProperty Name="UserDataID" ColumnName="UserDataID" />
+                <ScalarProperty Name="ClinicDoctorID" ColumnName="ClinicDoctorID" />
+                <ScalarProperty Name="HealthInsuranceCardNo" ColumnName="HealthInsuranceCardNo" />
+                <ScalarProperty Name="NumberOfDoctor" ColumnName="NumberOfDoctor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblHealthcareInstitutions">
+            <EntityTypeMapping TypeName="HealthcareSoftwareModel.tblHealthcareInstitution">
+              <MappingFragment StoreEntitySet="tblHealthcareInstitution">
+                <ScalarProperty Name="HealthcareInstitutionID" ColumnName="HealthcareInstitutionID" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="NumberOfFloors" ColumnName="NumberOfFloors" />
+                <ScalarProperty Name="NumberOfPersonsPerFloor" ColumnName="NumberOfPersonsPerFloor" />
+                <ScalarProperty Name="HasBalcony" ColumnName="HasBalcony" />
+                <ScalarProperty Name="HasBackyard" ColumnName="HasBackyard" />
+                <ScalarProperty Name="NumberOfAmbulanceAccess" ColumnName="NumberOfAmbulanceAccess" />
+                <ScalarProperty Name="NumberOfDisabledPersonsAccess" ColumnName="NumberOfDisabledPersonsAccess" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblHealthcareUserDatas">
+            <EntityTypeMapping TypeName="HealthcareSoftwareModel.tblHealthcareUserData">
+              <MappingFragment StoreEntitySet="tblHealthcareUserData">
+                <ScalarProperty Name="UserDataID" ColumnName="UserDataID" />
+                <ScalarProperty Name="GivenName" ColumnName="GivenName" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="IDCardNo" ColumnName="IDCardNo" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Citizenship" ColumnName="Citizenship" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSickLeaveRequirements">
+            <EntityTypeMapping TypeName="HealthcareSoftwareModel.tblSickLeaveRequirement">
+              <MappingFragment StoreEntitySet="tblSickLeaveRequirement">
+                <ScalarProperty Name="SickLeaveRequirementID" ColumnName="SickLeaveRequirementID" />
+                <ScalarProperty Name="ClinicPatientID" ColumnName="ClinicPatientID" />
+                <ScalarProperty Name="RequirementDate" ColumnName="RequirementDate" />
+                <ScalarProperty Name="RequirementCause" ColumnName="RequirementCause" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="IsEmergency" ColumnName="IsEmergency" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
