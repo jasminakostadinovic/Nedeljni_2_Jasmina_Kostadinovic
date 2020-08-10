@@ -1,0 +1,110 @@
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].HealthcareSoftware'))
+DROP DATABASE HealthcareSoftware;
+
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE NAME = 'HealthcareSoftware')
+	CREATE DATABASE HealthcareSoftware;
+
+GO
+USE HealthcareSoftware;
+
+--Droping tables
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblSickLeaveRequirement')
+	DROP TABLE tblSickLeaveRequirement
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblClinicPatient')
+	DROP TABLE tblClinicPatient
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblClinicDoctor')
+	DROP TABLE tblClinicDoctor
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblClinicMaintenance')
+	DROP TABLE tblClinicMaintenance
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblClinicManager')
+	DROP TABLE tblClinicManager
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblHealthcareUserData')
+	DROP TABLE tblHealthcareUserData
+
+IF  EXISTS (SELECT * FROM sys.objects 
+	WHERE NAME = 'tblHealthcareInstitution')
+	DROP TABLE tblHealthcareInstitution
+
+
+
+--Creating tables
+
+CREATE TABLE tblHealthcareInstitution
+	(HealthcareInstitutionID int primary key identity(1,1),
+	CompletionDate datetime not null,
+	[Name] nvarchar(50) not null,
+	[Owner] nvarchar(50) not null,
+	[Address] nvarchar(200) not null,
+	NumberOfFloors int not null,
+	NumberOfPersonsPerFloor int not null,
+	HasBalcony bit not null,
+	HasBackyard bit not null,
+	NumberOfAmbulanceAccess int, 
+	NumberOfDisabledPersonsAccess int);
+
+CREATE TABLE tblHealthcareUserData
+	(UserDataID int primary key identity(1,1),
+	GivenName nvarchar(50) not null,
+	Surname nvarchar(50) not null,
+	IDCardNo nvarchar(9) unique not null,
+	Sex nvarchar(50) not null,
+	DateOfBirth datetime not null,
+	Citizenship nvarchar(50) not null,
+	Username nvarchar(50)not null unique,
+	[Password] char(1000)not null);
+
+
+CREATE TABLE tblClinicMaintenance
+	(ClinicMaintenanceID int primary key identity(1,1),
+	UserDataID int foreign key(UserDataID) references tblHealthcareUserData(UserDataID) not null,
+	HasExpansionPermit bit not null,
+	IsResponsibleForDisabledAccess bit not null,
+	IsResponsibleForAmbulanceAccess bit not null);
+
+CREATE TABLE tblClinicManager
+	(ClinicManagerID int primary key identity(1,1),
+	UserDataID int foreign key(UserDataID) references tblHealthcareUserData(UserDataID) not null,
+	FloorNumber int not null,
+	MaxCountOfDoctors int not null,
+	MinCountOfRooms int not null,
+	OmissionsCount int not null);
+
+CREATE TABLE tblClinicDoctor
+	(ClinicDoctorID int primary key identity(1,1),
+	UserDataID int foreign key(UserDataID) references tblHealthcareUserData(UserDataID) not null,
+	Number nvarchar(5) unique not null,
+	BankAccountNo nvarchar(16) unique not null,
+	Department nvarchar(50) not null,
+	Shift nvarchar(50) not null, 
+	IsInChargeOfAdmissionOfPatients bit not null,
+	ClinicManagerID int foreign key(ClinicManagerID) references tblClinicManager(ClinicManagerID));
+
+
+CREATE TABLE tblClinicPatient
+	(ClinicPatientID int primary key identity(1,1),
+	UserDataID int foreign key(UserDataID) references tblHealthcareUserData(UserDataID) not null,
+	ClinicDoctorID int foreign key(ClinicDoctorID) references tblClinicDoctor(ClinicDoctorID),
+	HealthInsuranceCardNo nvarchar(50) not null unique,
+	NumberOfDoctor nvarchar(5));
+
+CREATE TABLE tblSickLeaveRequirement
+	(SickLeaveRequirementID int primary key identity(1,1),
+	ClinicPatientID int foreign key(ClinicPatientID) references tblClinicPatient(ClinicPatientID) not null,		
+	RequirementDate datetime not null,
+	RequirementCause nvarchar(500),
+	CompanyName nvarchar(100),
+	IsEmergency bit not null,
+	IsApproved bit not null);
+
