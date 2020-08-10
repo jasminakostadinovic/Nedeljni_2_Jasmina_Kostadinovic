@@ -3,12 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HealthcareData.Repositories
 {
-    class HealtcareDBRepository
+    public class HealtcareDBRepository
     {
         public bool TryAddNewUserData(tblHealthcareUserData userData)
         {
@@ -95,6 +93,50 @@ namespace HealthcareData.Repositories
             }
         }
 
+        public tblClinicMaintenance LoadMaintenanceByUserDataId(int userDataId)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return conn.tblClinicMaintenances.FirstOrDefault(x => x.UserDataID == userDataId);
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public object LoadManagerByUserDataId(int userDataId)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return conn.tblClinicManagers.FirstOrDefault(x => x.UserDataID == userDataId);
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+        public object LoadPatientByUserDataId(int userDataId)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return conn.tblClinicPatients.FirstOrDefault(x => x.UserDataID == userDataId);
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public bool TryAddNewSickLeaveRequirement(tblSickLeaveRequirement sickLeaveRequirement)
         {
             try
@@ -110,7 +152,7 @@ namespace HealthcareData.Repositories
             {
                 return false;
             }
-        }
+        }  
 
         public int GetUserDataId(string username)
         {
@@ -130,13 +172,13 @@ namespace HealthcareData.Repositories
             }
         }
 
-        public tblClinicDoctor LoadDoctor(int doctorId)
+        public tblClinicDoctor LoadDoctorByUserDataId(int userDataId)
         {
             try
             {
                 using (var conn = new HealthcareSoftwareEntities())
                 {
-                    return conn.tblClinicDoctors.FirstOrDefault(x => x.ClinicDoctorID == doctorId);
+                    return conn.tblClinicDoctors.FirstOrDefault(x => x.UserDataID == userDataId);
                 }
             }
             catch (Exception)
@@ -152,7 +194,7 @@ namespace HealthcareData.Repositories
                 using (var conn = new HealthcareSoftwareEntities())
                 {
                     if (conn.tblClinicDoctors.Any())                    
-                        return conn.tblClinicDoctors.Include(x => x.UserDataID).ToList();                  
+                        return conn.tblClinicDoctors.Include(x => x.tblHealthcareUserData).ToList();                  
                     return new List<tblClinicDoctor>();
                 }
             }
@@ -168,7 +210,7 @@ namespace HealthcareData.Repositories
                 using (var conn = new HealthcareSoftwareEntities())
                 {
                     if (conn.tblClinicPatients.Any())
-                        return conn.tblClinicPatients.Include(x => x.UserDataID).ToList();
+                        return conn.tblClinicPatients.Include(x => x.tblHealthcareUserData).ToList();
                     return new List<tblClinicPatient>();
                 }
             }
@@ -185,7 +227,7 @@ namespace HealthcareData.Repositories
                 using (var conn = new HealthcareSoftwareEntities())
                 {
                     if (conn.tblClinicManagers.Any())
-                        return conn.tblClinicManagers.Include(x => x.UserDataID).ToList();
+                        return conn.tblClinicManagers.Include(x => x.tblHealthcareUserData).ToList();
                     return new List<tblClinicManager>();
                 }
             }
@@ -202,7 +244,7 @@ namespace HealthcareData.Repositories
                 using (var conn = new HealthcareSoftwareEntities())
                 {
                     if (conn.tblClinicMaintenances.Any())
-                        return conn.tblClinicMaintenances.Include(x => x.UserDataID).ToList();
+                        return conn.tblClinicMaintenances.Include(x => x.tblHealthcareUserData).ToList();
                     return new List<tblClinicMaintenance>();
                 }
             }
