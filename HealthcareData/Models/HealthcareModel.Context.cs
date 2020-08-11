@@ -25,6 +25,7 @@ namespace HealthcareData.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tblClinicAdministrator> tblClinicAdministrators { get; set; }
         public virtual DbSet<tblClinicDoctor> tblClinicDoctors { get; set; }
         public virtual DbSet<tblClinicMaintenance> tblClinicMaintenances { get; set; }
         public virtual DbSet<tblClinicManager> tblClinicManagers { get; set; }

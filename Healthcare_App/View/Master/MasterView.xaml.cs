@@ -1,6 +1,5 @@
 ﻿using Healthcare_App.ViewModel.Master;
 using System.Windows;
-
 namespace Healthcare_App.View.Master
 {
     /// <summary>

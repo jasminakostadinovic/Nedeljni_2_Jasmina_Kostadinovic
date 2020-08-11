@@ -17,6 +17,7 @@ namespace HealthcareData.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblHealthcareUserData()
         {
+            this.tblClinicAdministrators = new HashSet<tblClinicAdministrator>();
             this.tblClinicDoctors = new HashSet<tblClinicDoctor>();
             this.tblClinicMaintenances = new HashSet<tblClinicMaintenance>();
             this.tblClinicManagers = new HashSet<tblClinicManager>();
@@ -33,6 +34,8 @@ namespace HealthcareData.Models
         public string Username { get; set; }
         public string Password { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblClinicAdministrator> tblClinicAdministrators { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblClinicDoctor> tblClinicDoctors { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

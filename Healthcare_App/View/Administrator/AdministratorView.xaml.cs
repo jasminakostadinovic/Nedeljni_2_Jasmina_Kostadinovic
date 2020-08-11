@@ -23,5 +23,14 @@ namespace Healthcare_App.View.Administrator
         {
             InitializeComponent();
         }
+        private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            //hiding id columns
+            if (e.Column.Header.ToString() == "OrderID"
+                 || e.Column.Header.ToString() == "tblMealOrders")
+            {
+                e.Column.Visibility = Visibility.Collapsed;
+            }
+        }
     }
 }

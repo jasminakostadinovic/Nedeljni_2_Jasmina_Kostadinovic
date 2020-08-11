@@ -66,6 +66,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HealthcareModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\tblClinicAdministrator.cs">
+      <DependentUpon>HealthcareModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tblClinicDoctor.cs">
       <DependentUpon>HealthcareModel.tt</DependentUpon>
     </Compile>
@@ -92,29 +95,15 @@
     <Compile Include="Validations\HealthcareValidations.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.Config" />
     <EntityDeploy Include="Models\HealthcareModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>HealthcareModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.Config" />
     <None Include="Models\HealthcareModel.edmx.diagram">
       <DependentUpon>HealthcareModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\HealthcareModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>HealthcareModel.Context.cs</LastGenOutput>
-      <DependentUpon>HealthcareModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\HealthcareModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>HealthcareModel.edmx</DependentUpon>
-      <LastGenOutput>HealthcareModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -124,6 +113,18 @@
       <Project>{F1445746-7819-45BB-9137-B262239E67A3}</Project>
       <Name>DataValidations</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Models\HealthcareModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HealthcareModel.edmx</DependentUpon>
+      <LastGenOutput>HealthcareModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\HealthcareModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HealthcareModel.edmx</DependentUpon>
+      <LastGenOutput>HealthcareModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
