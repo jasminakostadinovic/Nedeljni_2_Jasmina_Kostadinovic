@@ -21,8 +21,9 @@ namespace Healthcare_App.ViewModel
 	{
 		#region Fields
 		private string userName;
-		public static readonly string clinicAccessPath = @"..\ClinicAccess.txt";
-
+		private static readonly string clinicAccessPath = @"..\ClinicAccess.txt";
+		private string masterUserName;
+		private string masterPassword;
 		readonly MainWindow loginView;
 		#endregion
 
@@ -30,19 +31,9 @@ namespace Healthcare_App.ViewModel
 		internal MainWindowViewModel(MainWindow view)
 		{
 			this.loginView = view;
-			try
-			{
-				MasterUserName = File.ReadAllLines(clinicAccessPath)[0];
-				MasterPassword = File.ReadAllLines(clinicAccessPath)[1];
-			}
-			catch (Exception)
-			{
-				MessageBox.Show("Failed reading credentials from the file. Please use username: Master password: Master123* as credentials to access the predefined account.");
-				MasterUserName = "Master";
-				MasterPassword = "Master123*";
-			}
-		
-		}
+			masterUserName = ReadMasterUsername();
+			masterPassword = ReadMasterPasword();
+		}	
 
 		static MainWindowViewModel()
 		{
@@ -56,10 +47,34 @@ namespace Healthcare_App.ViewModel
 			}
 		}
 		#endregion
-		public string MasterUserName { get; private set; }
-		public string MasterPassword { get; private set; }
-		#region Properties
-		public string UserName
+
+		#region Meethods
+
+		private string ReadMasterUsername()
+		{
+			try
+			{
+				return File.ReadAllLines(clinicAccessPath)[0];
+			}
+			catch (Exception)
+			{
+				return "Klinika";
+			}
+		}
+		private string ReadMasterPasword()
+		{
+			try
+			{
+				return File.ReadAllLines(clinicAccessPath)[1];
+			}
+			catch (Exception)
+			{
+				return "Klinika123*";
+			}
+		}
+        #endregion
+        #region Properties
+        public string UserName
 		{
 			get
 			{
@@ -93,7 +108,7 @@ namespace Healthcare_App.ViewModel
 			var validate = new Validations();
 			var validateHealthcareData = new HealthcareValidations();
 			var db = new HealtcareDBRepository();
-			if (UserName == MasterUserName && password == MasterPassword)
+			if (UserName == masterUserName && password == masterPassword)
 			{
 				MasterView masterView = new MasterView();
 				loginView.Close();

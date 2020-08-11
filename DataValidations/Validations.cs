@@ -22,9 +22,16 @@ namespace DataValidations
         {
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new ArgumentNullException("Password should not be empty");
+              return false;
             }
-            return new Regex(@"^ (?=.*[a - z])(?=.*[A - Z])(?=.*\d)(?=.*[^\da - zA - Z]).{ 8}$").IsMatch(password);
+            return new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,60}$").IsMatch(password);
+        }
+
+        public bool IsValidIDCardFormat(string idcardNo)
+        {
+            if (!IsDigitsOnly(idcardNo) || idcardNo.Length != 9)
+                return false;
+            return true;
         }
     }
 }

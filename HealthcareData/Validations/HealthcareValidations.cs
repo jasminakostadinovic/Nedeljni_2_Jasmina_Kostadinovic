@@ -51,5 +51,35 @@ namespace HealthcareData.Validations
                 return null;
             }
         }
+
+        public bool IsUniqueIDCardNo(string iDCardNo)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return !conn.tblHealthcareUserDatas.Any(x => x.IDCardNo == iDCardNo);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool IsUniqueUsername(string username)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return !conn.tblHealthcareUserDatas.Any(x => x.Username == username);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -24,6 +24,22 @@ namespace HealthcareData.Repositories
                 return false;
             }
         }
+        public bool TryAddNewAdministrator(tblClinicAdministrator administrator)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    conn.tblClinicAdministrators.Add(administrator);
+                    conn.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         public bool TryAddNewPatient(tblClinicPatient patient)
         {
@@ -252,8 +268,7 @@ namespace HealthcareData.Repositories
             {
                 return new List<tblClinicMaintenance>();
             }
-        }
-
+        }      
     }
 }
 

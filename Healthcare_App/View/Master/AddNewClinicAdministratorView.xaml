@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
          mc:Ignorable="d"
-   Title="Add New Administrator"  Height="350" Width="450" Background="#2e3137" WindowStartupLocation="CenterScreen">
+   Title="Add New Administrator"  Height="310" Width="450" Background="#2e3137" WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -39,7 +39,7 @@ Path=(Validation.Errors)[0].ErrorContent}"/>
             <RowDefinition Height="6"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="6"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>       
             <RowDefinition Height="6"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="6"/>
@@ -47,16 +47,7 @@ Path=(Validation.Errors)[0].ErrorContent}"/>
             <RowDefinition Height="6"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="6"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="6"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="6"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="6"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="6"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="6"/>
+     
             <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
@@ -69,9 +60,6 @@ Path=(Validation.Errors)[0].ErrorContent}"/>
         <Label Grid.Column="1" Grid.Row="11" Name="lblCitizenship" Content="Citizenship:" Padding="0" HorizontalAlignment="Right" Foreground="White"/>
         <Label Grid.Column="1" Grid.Row="13" Name="lblUsername" Content="Username:" Padding="0" HorizontalAlignment="Right" Foreground="White"/>
         <Label Grid.Column="1" Grid.Row="15" Name="lblPassword" Content="Password:" Padding="0" HorizontalAlignment="Right" Foreground="White"/>
-        
-        <Label Grid.Column="1" Grid.Row="17" Name="lblAdministratorTeam" Content="Administrator Team:" Padding="0" HorizontalAlignment="Right" Foreground="White"/>
-
         
         <TextBox Grid.Column="3" Grid.Row="1" Name="txtClientGivenName" Height="20" MinWidth="200"
                  TextWrapping="Wrap"
@@ -105,10 +93,10 @@ Path=(Validation.Errors)[0].ErrorContent}"/>
                  TextWrapping="Wrap"
                  Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
         
-        <Button Grid.Column="3" Grid.Row="21" Name="btnSave" Content="Save" Height="20" Width="70" HorizontalAlignment="Right"
+        <Button Grid.Column="3" Grid.Row="17" Name="btnSave" Content="Save" Height="20" Width="70" HorizontalAlignment="Right"
                 Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}" Background="#545d6a" Foreground="White"  />
 
-        <Button Grid.Column="1" Grid.Row="21" Name="btnExit" Content="Exit" Height="20" Width="70" HorizontalAlignment="Left"
+        <Button Grid.Column="1" Grid.Row="17" Name="btnExit" Content="Exit" Height="20" Width="70" HorizontalAlignment="Left"
                 Command="{Binding Exit, UpdateSourceTrigger=PropertyChanged}" Background="#545d6a" Foreground="White" Grid.ColumnSpan="3"/>
     </Grid>
 </Window>
