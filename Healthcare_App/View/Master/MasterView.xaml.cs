@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Healthcare_App.ViewModel.Master;
+using System.Windows;
 
 namespace Healthcare_App.View.Master
 {
@@ -10,6 +11,7 @@ namespace Healthcare_App.View.Master
         public MasterView()
         {
             InitializeComponent();
+            this.DataContext = new MasterViewModel(this);
         }
     }
 }
