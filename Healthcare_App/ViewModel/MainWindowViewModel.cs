@@ -9,7 +9,9 @@ using Healthcare_App.View.Registration;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using HealthcareData.Validations;
+using System;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -28,8 +30,18 @@ namespace Healthcare_App.ViewModel
 		internal MainWindowViewModel(MainWindow view)
 		{
 			this.loginView = view;
-			MasterUserName = File.ReadAllLines(clinicAccessPath)[0];
-			MasterPassword = File.ReadAllLines(clinicAccessPath)[1];
+			try
+			{
+				MasterUserName = File.ReadAllLines(clinicAccessPath)[0];
+				MasterPassword = File.ReadAllLines(clinicAccessPath)[1];
+			}
+			catch (Exception)
+			{
+				MessageBox.Show("Failed reading credentials from the file. Please use username: Master password: Master123* as credentials to access the predefined account.");
+				MasterUserName = "Master";
+				MasterPassword = "Master123*";
+			}
+		
 		}
 
 		static MainWindowViewModel()
