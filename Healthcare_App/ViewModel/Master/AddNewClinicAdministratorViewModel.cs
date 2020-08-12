@@ -309,6 +309,7 @@ namespace Healthcare_App.ViewModel.Master
                     else
                     {
                         Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new administrator with ID Card Number : '{IDCardNo}'");
+                        MessageBox.Show("The new clinic administrator is sucessfully created.");
                     }
                     MasterView masterView = new MasterView();
                     addNewAdministratorView.Close();

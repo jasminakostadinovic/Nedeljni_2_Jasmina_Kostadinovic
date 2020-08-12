@@ -386,6 +386,7 @@ namespace Healthcare_App.ViewModel.Administrator
                     else
                     {
                         Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new clinic maintenance with ID Card Number : '{IDCardNo}'");
+                        MessageBox.Show("The new clinic maintenance is sucessfully created.");
                     }
                     AdministratorView administratorView = new AdministratorView();
                     addNewMaintenanceView.Close();
