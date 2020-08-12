@@ -6,12 +6,8 @@ using HealthcareData.Models;
 using HealthcareData.Repositories;
 using HealthcareData.Validations;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -33,7 +29,12 @@ namespace Healthcare_App.ViewModel.Administrator
         private string password;
         private tblHealthcareUserData userData;
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
-        private string[] sexTypes = new string[] { "M", "F", "N", "X" };
+        private string[] sexTypes = { "M", "F", "N", "X" };
+
+        public string[] permits = { "yes", "no" };
+        public string[] responsibilities = { "For Disabled Access", "For Ambulance Access " };
+        public string permit;
+        public string responsibility;
         #endregion
         #region Properties
         public bool IsAddedNewMaintenance { get; internal set; }
@@ -181,6 +182,8 @@ namespace Healthcare_App.ViewModel.Administrator
             Password = string.Empty;
             GivenName = string.Empty;
             Surname = string.Empty;
+            responsibility = string.Empty;
+            permit = string.Empty;
             Maintenance = new tblClinicMaintenance();
             CanSave = true;
             userData = new tblHealthcareUserData();
@@ -304,10 +307,25 @@ namespace Healthcare_App.ViewModel.Administrator
                 if (userId != 0)
                 {
                     maintenance.UserDataID = userId;
+                    if (permit == permits[0])
+                        maintenance.HasExpansionPermit = true;
+                    else
+                        maintenance.HasExpansionPermit = false;
+                    if(responsibility == responsibilities[0])
+                    {
+                        maintenance.IsResponsibleForDisabledAccess = true;
+                        maintenance.IsResponsibleForAmbulanceAccess = false;
+                    }
+                    else
+                    {
+                        maintenance.IsResponsibleForDisabledAccess = false;
+                        maintenance.IsResponsibleForAmbulanceAccess = true;
+                    }
+                   
                     IsAddedNewMaintenance = db.TryAddNewMaintenance(maintenance);
                     if (IsAddedNewMaintenance == false)
                     {
-                        MessageBox.Show("Something went wrong. New administrator is not created.");
+                        MessageBox.Show("Something went wrong. New clinic maintenance is not created.");
                         db.TryRemoveUserData(userId);
                     }
 
