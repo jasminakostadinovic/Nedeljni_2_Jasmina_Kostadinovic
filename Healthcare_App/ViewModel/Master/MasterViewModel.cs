@@ -1,5 +1,6 @@
 ﻿using Healthcare_App.Command;
 using Healthcare_App.View.Master;
+using HealthcareData.Repositories;
 using System;
 using System.Linq;
 using System.Windows;
@@ -11,6 +12,7 @@ namespace Healthcare_App.ViewModel.Master
     {
         #region Fields
         readonly MasterView masterView;
+        private readonly HealtcareDBRepository db = new HealtcareDBRepository();
         #endregion
 
         #region Constructor
@@ -52,6 +54,8 @@ namespace Healthcare_App.ViewModel.Master
         }
         private bool CanAddNewClinicAdministrator()
         {
+            if (db.LoadAdministrators().Any())
+                return false;
             return true;
         }
        

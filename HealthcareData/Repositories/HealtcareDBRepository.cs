@@ -75,6 +75,23 @@ namespace HealthcareData.Repositories
             }
         }
 
+        public new List<tblClinicAdministrator> LoadAdministrators()
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    if (conn.tblClinicAdministrators.Any())
+                        return conn.tblClinicAdministrators.ToList();
+                    return new List<tblClinicAdministrator>();
+                }
+            }
+            catch (Exception)
+            {
+                return new List<tblClinicAdministrator>();
+            }
+        }
+
         public bool TryAddNewManager(tblClinicManager manager)
         {
             try
@@ -168,7 +185,7 @@ namespace HealthcareData.Repositories
             {
                 return false;
             }
-        }  
+        }
 
         public int GetUserDataId(string username)
         {
@@ -209,8 +226,8 @@ namespace HealthcareData.Repositories
             {
                 using (var conn = new HealthcareSoftwareEntities())
                 {
-                    if (conn.tblClinicDoctors.Any())                    
-                        return conn.tblClinicDoctors.Include(x => x.tblHealthcareUserData).ToList();                  
+                    if (conn.tblClinicDoctors.Any())
+                        return conn.tblClinicDoctors.Include(x => x.tblHealthcareUserData).ToList();
                     return new List<tblClinicDoctor>();
                 }
             }
@@ -268,7 +285,31 @@ namespace HealthcareData.Repositories
             {
                 return new List<tblClinicMaintenance>();
             }
-        }      
+        }
+
+        public bool TryRemoveUserData(int userId)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    var userToRemove = conn.tblHealthcareUserDatas.FirstOrDefault(x => x.UserDataID == userId);
+
+                    if (userToRemove != null)
+                    {
+                        conn.tblHealthcareUserDatas.Remove(userToRemove);
+                        conn.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
+
 }
 

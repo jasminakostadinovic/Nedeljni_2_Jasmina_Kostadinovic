@@ -302,7 +302,11 @@ namespace Healthcare_App.ViewModel.Master
                     administrator.UserDataID = userId;
                     IsAddedNewAdministrator = db.TryAddNewAdministrator(administrator);
                     if (IsAddedNewAdministrator == false)
+                    {
                         MessageBox.Show("Something went wrong. New administrator is not created.");
+                        db.TryRemoveUserData(userId);
+                    }
+               
                     else
                     {
                         Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new administrator with ID Card Number : '{IDCardNo}'");
