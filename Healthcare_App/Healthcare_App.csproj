@@ -71,6 +71,7 @@
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\Master\AddNewClinicAdministratorViewModel.cs" />
     <Compile Include="ViewModel\Master\MasterViewModel.cs" />
+    <Compile Include="ViewModel\ShouldDeleteViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="ViewModel\WarningViewModel.cs" />
     <Compile Include="View\Administrator\AddNewClinicMaintenanceView.xaml.cs">
@@ -99,6 +100,9 @@
     </Compile>
     <Compile Include="View\Registration\RegistrationView.xaml.cs">
       <DependentUpon>RegistrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ShouldDeleteView.xaml.cs">
+      <DependentUpon>ShouldDeleteView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WarningView.xaml.cs">
       <DependentUpon>WarningView.xaml</DependentUpon>
@@ -149,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Registration\RegistrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ShouldDeleteView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

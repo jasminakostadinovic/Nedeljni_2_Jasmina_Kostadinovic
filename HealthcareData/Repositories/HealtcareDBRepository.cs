@@ -155,6 +155,31 @@ namespace HealthcareData.Repositories
                 return null;
             }
         }
+
+        public bool TryRemoveClinicMaintenance(int clinicMaintenanceID)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    var maintenanceToRemove = conn.tblClinicMaintenances
+                        .FirstOrDefault(x => x.ClinicMaintenanceID == clinicMaintenanceID);
+
+                    if (maintenanceToRemove != null)
+                    {
+                        conn.tblClinicMaintenances.Remove(maintenanceToRemove);
+                        conn.SaveChanges();
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public object LoadPatientByUserDataId(int userDataId)
         {
             try
