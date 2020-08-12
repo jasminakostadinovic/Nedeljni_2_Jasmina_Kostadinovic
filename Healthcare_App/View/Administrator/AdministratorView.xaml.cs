@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Healthcare_App.ViewModel.Administrator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,13 @@ namespace Healthcare_App.View.Administrator
         public AdministratorView()
         {
             InitializeComponent();
+            this.DataContext = new AdministratorViewModel(this);
         }
         private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             //hiding id columns
-            if (e.Column.Header.ToString() == "OrderID"
-                 || e.Column.Header.ToString() == "tblMealOrders")
+            if (e.Column.Header.ToString() == "ClinicMaintenanceID"
+                 || e.Column.Header.ToString() == "UserDataID")
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }

@@ -35,6 +35,8 @@ namespace HealthcareData.Validations
             {
                 using (var conn = new HealthcareSoftwareEntities())
                 {
+                    if (conn.tblClinicAdministrators.Any(x => x.UserDataID == userDataId))
+                        return nameof(tblClinicAdministrator);
                     if (conn.tblClinicDoctors.Any(x => x.UserDataID == userDataId))
                         return nameof(tblClinicDoctor);
                     if (conn.tblClinicMaintenances.Any(x => x.UserDataID == userDataId))

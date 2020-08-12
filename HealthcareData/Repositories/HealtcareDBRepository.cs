@@ -75,7 +75,7 @@ namespace HealthcareData.Repositories
             }
         }
 
-        public new List<tblClinicAdministrator> LoadAdministrators()
+        public List<tblClinicAdministrator> LoadAdministrators()
         {
             try
             {

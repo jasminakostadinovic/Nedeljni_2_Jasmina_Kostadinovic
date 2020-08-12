@@ -1,5 +1,7 @@
 ﻿using DataValidations;
 using Healthcare_App.Command;
+using Healthcare_App.View;
+using Healthcare_App.View.Administrator;
 using Healthcare_App.View.Doctor;
 using Healthcare_App.View.Maintenance;
 using Healthcare_App.View.Manager;
@@ -115,11 +117,19 @@ namespace Healthcare_App.ViewModel
 				masterView.Show();
 				return;
 			}
-			if (validateHealthcareData.IsCorrectUser(userName, password))
+			else if (validateHealthcareData.IsCorrectUser(userName, password))
 			{
 				int userDataId = db.GetUserDataId(userName);
 				if (userDataId != 0)
 				{
+					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicAdministrator))
+					{
+						var administrator = db.LoadManagerByUserDataId(userDataId);
+						AdministratorView administratorView = new AdministratorView();
+						loginView.Close();
+						administratorView.Show();
+						return;
+					}
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicDoctor))
 					{
 						var doctor = db.LoadDoctorByUserDataId(userDataId);
@@ -153,6 +163,12 @@ namespace Healthcare_App.ViewModel
 						return;
 					}
 				}
+			}
+			else
+			{
+				WarningView warning = new WarningView(loginView);
+				warning.Show("User name or password are not correct!");
+				return;
 			}
 		}
 

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
-      Title="Welcome" Background="#2e3137" Height="520" Width="850" WindowStartupLocation="CenterScreen">
+      Title="Administrator" Background="#2e3137" Height="520" Width="850" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -33,11 +33,11 @@
                             <StackPanel Orientation="Horizontal">
                                 <Button x:Name="btnDelete" Content="Delete"  HorizontalAlignment="Right"
                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
-                                              Path=DataContext.DeleteEmployee}"
+                                              Path=DataContext.DeleteClinicMaintenance}"
                             CommandParameter="{Binding}"/>
                                 <Button Name="btnUpdate" Content="Update"  HorizontalAlignment="Left"
                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
-                                              Path=DataContext.UpdateEmployee}"
+                                              Path=DataContext.UpdateClinicMaintenance}"
                             CommandParameter="{Binding}"/>
                             </StackPanel>
 
@@ -50,12 +50,7 @@
         <Button Grid.Column="1" Grid.Row="1" Content="Add New Clinic Maintenance" Name="btnAddNewClinicMaintenance" HorizontalAlignment="Left" 
                 VerticalAlignment="Top" Width="auto"  
                 Command="{Binding AddNewClinicMaintenance, UpdateSourceTrigger=PropertyChanged}"
-                Background="#545d6a" Foreground="White"/>
-        
-        <Button Grid.Column="1" Grid.Row="1" Content="Add New Clinic Administrator" Name="btnAddNewClinicAdministrator" HorizontalAlignment="Center" 
-                VerticalAlignment="Top" Width="auto"  
-                Command="{Binding AddNewClinicAdministrator, UpdateSourceTrigger=PropertyChanged}"
-                Background="#545d6a" Foreground="White"/>
+                Background="#545d6a" Foreground="White"/>     
  
         <Button Grid.Column="1" Grid.Row="5
                 " Content="Logout" Name="btnLogout" HorizontalAlignment="Right" 
