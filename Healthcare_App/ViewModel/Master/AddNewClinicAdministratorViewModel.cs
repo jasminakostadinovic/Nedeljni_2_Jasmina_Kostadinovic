@@ -293,7 +293,7 @@ namespace Healthcare_App.ViewModel.Master
                 userData.Citizenship = Citizenship;
                 userData.Username = Username;
                 userData.Password = SecurePasswordHasher.Hash(Password);
-
+           
                 //adding new administrator to database 
                 db.TryAddNewUserData(userData);
                 var userId = db.GetUserDataId(Username);
@@ -305,13 +305,14 @@ namespace Healthcare_App.ViewModel.Master
                     {
                         MessageBox.Show("Something went wrong. New administrator is not created.");
                         db.TryRemoveUserData(userId);
-                    }
-               
+                    }               
                     else
                     {
                         Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new administrator with ID Card Number : '{IDCardNo}'");
                     }
+                    MasterView masterView = new MasterView();
                     addNewAdministratorView.Close();
+                    masterView.Show();
                     return;
                 }
             }

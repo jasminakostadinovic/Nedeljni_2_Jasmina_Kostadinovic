@@ -71,13 +71,13 @@ namespace Healthcare_App.ViewModel.Administrator
             {
                 if (addNewClinicMaintenance == null)
                 {
-                    addNewClinicMaintenance = new RelayCommand(param => AddNewClinicAdministratorExecute(), param => CanAddNewClinicAdministrator());
+                    addNewClinicMaintenance = new RelayCommand(param => AddNewClinicMaintenanceExecute(), param => CanAddNewClinicMaintenance());
                 }
                 return addNewClinicMaintenance;
             }
         }
 
-        private void AddNewClinicAdministratorExecute()
+        private void AddNewClinicMaintenanceExecute()
         {
             try
             {
@@ -90,7 +90,7 @@ namespace Healthcare_App.ViewModel.Administrator
                 MessageBox.Show(ex.ToString());
             }
         }
-        private bool CanAddNewClinicAdministrator()
+        private bool CanAddNewClinicMaintenance()
         {
             return true;
         }

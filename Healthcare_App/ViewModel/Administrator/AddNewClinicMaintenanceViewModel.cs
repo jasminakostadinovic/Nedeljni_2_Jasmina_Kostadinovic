@@ -37,6 +37,58 @@ namespace Healthcare_App.ViewModel.Administrator
         public string responsibility;
         #endregion
         #region Properties
+        public string Responsibility
+        {
+            get
+            {
+                return responsibility;
+            }
+            set
+            {
+                if (responsibility == value) return;
+                responsibility = value;
+                OnPropertyChanged(nameof(Responsibility));
+            }
+        }
+        public string[] Responsibilities
+        {
+            get
+            {
+                return responsibilities;
+            }
+            set
+            {
+                if (responsibilities == value) return;
+                responsibilities = value;
+                OnPropertyChanged(nameof(Responsibilities));
+            }
+        }
+        public string[] Permits
+        {
+            get
+            {
+                return permits;
+            }
+            set
+            {
+                if (permits == value) return;
+                permits = value;
+                OnPropertyChanged(nameof(Permits));
+            }
+        }
+        public string Permit
+        {
+            get
+            {
+                return permit;
+            }
+            set
+            {
+                if (permit == value) return;
+                permit = value;
+                OnPropertyChanged(nameof(Permit));
+            }
+        }
         public bool IsAddedNewMaintenance { get; internal set; }
         public bool CanSave { get; set; }
         public string DateOfBirth
@@ -182,8 +234,8 @@ namespace Healthcare_App.ViewModel.Administrator
             Password = string.Empty;
             GivenName = string.Empty;
             Surname = string.Empty;
-            responsibility = string.Empty;
-            permit = string.Empty;
+            Responsibility = string.Empty;
+            Permit = string.Empty;
             Maintenance = new tblClinicMaintenance();
             CanSave = true;
             userData = new tblHealthcareUserData();
@@ -284,6 +336,8 @@ namespace Healthcare_App.ViewModel.Administrator
                 || string.IsNullOrWhiteSpace(IDCardNo)
                 || string.IsNullOrWhiteSpace(Username)
                 || string.IsNullOrWhiteSpace(Password)
+                || string.IsNullOrWhiteSpace(Responsibility)
+                || string.IsNullOrWhiteSpace(Permit)
                 || CanSave == false)
                 return false;
             return true;
@@ -333,7 +387,9 @@ namespace Healthcare_App.ViewModel.Administrator
                     {
                         Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new clinic maintenance with ID Card Number : '{IDCardNo}'");
                     }
+                    AdministratorView administratorView = new AdministratorView();
                     addNewMaintenanceView.Close();
+                    administratorView.Show();
                     return;
                 }
             }

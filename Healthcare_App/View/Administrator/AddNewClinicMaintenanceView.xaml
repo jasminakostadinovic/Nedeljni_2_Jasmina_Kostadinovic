@@ -100,12 +100,12 @@ Path=(Validation.Errors)[0].ErrorContent}"/>
                  Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 
         <ComboBox Grid.Column="3" Grid.Row="19" Name="cmbResponsibility" Height="20" Width="auto" 
-                 IsEditable="True" ItemsSource="{Binding responsibilities, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding responsibility, UpdateSourceTrigger=PropertyChanged}" />
+                 IsEditable="True" ItemsSource="{Binding Responsibilities, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Responsibility, UpdateSourceTrigger=PropertyChanged}" />
         
         <ComboBox Grid.Column="3" Grid.Row="17" Name="cmbPermit" Height="20" Width="auto" 
-                 IsEditable="True" ItemsSource="{Binding permits, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding permit, UpdateSourceTrigger=PropertyChanged}" />
+                 IsEditable="True" ItemsSource="{Binding Permits, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Permit, UpdateSourceTrigger=PropertyChanged}" />
         
         <Button Grid.Column="3" Grid.Row="21" Name="btnSave" Content="Save" Height="20" Width="70" HorizontalAlignment="Right"
                 Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}" Background="#545d6a" Foreground="White"  />

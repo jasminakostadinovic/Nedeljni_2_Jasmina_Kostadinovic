@@ -302,11 +302,15 @@ namespace HealthcareData.Repositories
                 using (var conn = new HealthcareSoftwareEntities())
                 {
                     if (conn.tblClinicMaintenances.Any())
-                        return conn.tblClinicMaintenances.Include(x => x.tblHealthcareUserData).ToList();
+                    {
+                        var list = conn.tblClinicMaintenances.Include(x => x.tblHealthcareUserData).ToList();
+                        return list;
+                    }
+                      
                     return new List<tblClinicMaintenance>();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return new List<tblClinicMaintenance>();
             }

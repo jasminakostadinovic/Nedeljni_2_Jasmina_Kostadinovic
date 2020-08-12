@@ -2,18 +2,13 @@
 using Healthcare_App.Command;
 using Healthcare_App.View;
 using Healthcare_App.View.Administrator;
-using Healthcare_App.View.Doctor;
-using Healthcare_App.View.Maintenance;
-using Healthcare_App.View.Manager;
 using Healthcare_App.View.Master;
-using Healthcare_App.View.Patient;
 using Healthcare_App.View.Registration;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using HealthcareData.Validations;
 using System;
 using System.IO;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -32,9 +27,7 @@ namespace Healthcare_App.ViewModel
 		#region Constructor
 		internal MainWindowViewModel(MainWindow view)
 		{
-			this.loginView = view;
-			masterUserName = ReadMasterUsername();
-			masterPassword = ReadMasterPasword();
+			this.loginView = view;		
 		}	
 
 		static MainWindowViewModel()
@@ -110,6 +103,8 @@ namespace Healthcare_App.ViewModel
 			var validate = new Validations();
 			var validateHealthcareData = new HealthcareValidations();
 			var db = new HealtcareDBRepository();
+			masterUserName = ReadMasterUsername();
+			masterPassword = ReadMasterPasword();
 			if (UserName == masterUserName && password == masterPassword)
 			{
 				MasterView masterView = new MasterView();
