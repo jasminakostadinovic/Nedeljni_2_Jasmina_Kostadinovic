@@ -3,6 +3,7 @@ using Healthcare_App.Command;
 using Healthcare_App.View;
 using Healthcare_App.View.Administrator;
 using Healthcare_App.View.Maintenance;
+using Healthcare_App.View.Manager;
 using Healthcare_App.View.Master;
 using Healthcare_App.View.Registration;
 using Healthcare_App.ViewModel.Administrator;
@@ -161,9 +162,9 @@ namespace Healthcare_App.ViewModel
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicManager))
 					{
 						var manager = db.LoadManagerByUserDataId(userDataId);
-						//ManagerView managerView = new ManagerView(manager);
-						//loginView.Close();
-						//managerView.Show();
+						ManagerView managerView = new ManagerView(manager);
+						loginView.Close();
+						managerView.Show();
 						return;
 					}
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicPatient))

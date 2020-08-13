@@ -54,6 +54,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Models\ClinicAdministrator.cs" />
     <Compile Include="Models\ClinicMaintenance.cs" />
+    <Compile Include="Models\Doctor.cs" />
     <Compile Include="Models\HealthcareInstitution.cs" />
     <Compile Include="Models\HealthcareModel.Context.cs">
       <AutoGen>True</AutoGen>
