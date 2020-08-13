@@ -19,7 +19,9 @@ namespace Healthcare_App.View.Administrator
             //hiding id columns
             if (e.Column.Header.ToString() == "ClinicMaintenanceID"
                  || e.Column.Header.ToString() == "UserDataID"
-                 || e.Column.Header.ToString() == "tblHealthcareUserData")
+                 || e.Column.Header.ToString() == "tblHealthcareUserData"
+                 || e.Column.Header.ToString() == "HealthcareInstitutionID"
+                 || e.Column.Header.ToString() == "CompletionDate")
             {
                 e.Column.Visibility = Visibility.Collapsed;
             }

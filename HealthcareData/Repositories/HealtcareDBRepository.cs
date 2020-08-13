@@ -59,6 +59,23 @@ namespace HealthcareData.Repositories
             }
         }
 
+        public List<tblHealthcareInstitution> LoadHealthcareInstitutions()
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    if (conn.tblHealthcareInstitutions.Any())
+                        return conn.tblHealthcareInstitutions.ToList();
+                    return new List<tblHealthcareInstitution>();
+                }
+            }
+            catch (Exception)
+            {
+                return new List<tblHealthcareInstitution>();
+            }
+        }
+
         public bool TryAddNewDoctor(tblClinicDoctor doctor)
         {
             try

@@ -20,10 +20,19 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="6"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Column="1" Grid.Row="3" Name="ClinicMaintenanceGrid" AutoGenerateColumns="True" HorizontalAlignment="Center" 
-                  IsReadOnly="True" Height="400" VerticalAlignment="Top" 
+
+        <Label Grid.Column="1" Grid.Row="3" Name="lblName" Content="Clinic Maintenances:" Padding="0" HorizontalAlignment="left" Foreground="White"/>
+
+        <DataGrid Grid.Column="1" Grid.Row="5" Name="ClinicMaintenanceGrid" AutoGenerateColumns="True" HorizontalAlignment="Center" 
+                  IsReadOnly="True" Height="180" VerticalAlignment="Top" 
                   Width="790" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
                   ItemsSource="{Binding ClinicMaintenances}" SelectedItem="{Binding ClinicMaintenance}" SelectionMode="Single">
             <DataGrid.Columns>
@@ -47,13 +56,35 @@
             </DataGrid.Columns>
         </DataGrid>
 
+        <Label Grid.Column="1" Grid.Row="7" Name="lblIn" Content="Healtcare Istitution:" Padding="0" HorizontalAlignment="Left" Foreground="White"/>
+
+        <DataGrid Grid.Column="1" Grid.Row="9" Name="HealtcareIstitutionGrid" AutoGenerateColumns="True" HorizontalAlignment="Center" 
+                  IsReadOnly="True" Height="100" VerticalAlignment="Top" 
+                  Width="790" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
+                  ItemsSource="{Binding HealtcareIstitutions}" SelectedItem="{Binding HealtcareIstitution}" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn  Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">                           
+                                <Button Name="btnUpdate" Content="Update"  HorizontalAlignment="Left"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                              Path=DataContext.UpdateHealtcareIstitution}"
+                            CommandParameter="{Binding}"/>
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
         <Button Grid.Column="1" Grid.Row="1" Content="Add New Clinic Maintenance" Name="btnAddNewClinicMaintenance" HorizontalAlignment="Left" 
                 VerticalAlignment="Top" Width="auto"  
                 Command="{Binding AddNewClinicMaintenance, UpdateSourceTrigger=PropertyChanged}"
                 Background="#545d6a" Foreground="White"/>     
  
-        <Button Grid.Column="1" Grid.Row="5
-                " Content="Logout" Name="btnLogout" HorizontalAlignment="Right" 
+        <Button Grid.Column="1" Grid.Row="1" Content="Logout" Name="btnLogout" HorizontalAlignment="Right" 
                 VerticalAlignment="Top" Width="auto"  
                 Command="{Binding Logout, UpdateSourceTrigger=PropertyChanged}"
                 Background="#545d6a" Foreground="White"/>

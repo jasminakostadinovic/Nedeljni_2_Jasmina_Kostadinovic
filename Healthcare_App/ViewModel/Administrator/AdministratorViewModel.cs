@@ -18,6 +18,8 @@ namespace Healthcare_App.ViewModel.Administrator
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
         private List<tblClinicMaintenance> clinicMaintenances;
         private tblClinicMaintenance clinicMaintenance;
+        private List<tblHealthcareInstitution> healthcareInstitutions;
+        private tblHealthcareInstitution healthcareInstitution;
         #endregion
 
         #region Constructor
@@ -26,6 +28,13 @@ namespace Healthcare_App.ViewModel.Administrator
             this.adminView = adminView;
             ClinicMaintenance = new tblClinicMaintenance();
             ClinicMaintenances = LoadClinicMaintenance();
+            HealtcareIstitution = new tblHealthcareInstitution();
+            HealtcareIstitutions = LoadHealthcareInstitutions();
+        }
+
+        private List<tblHealthcareInstitution> LoadHealthcareInstitutions()
+        {
+            return db.LoadHealthcareInstitutions();
         }
 
         private List<tblClinicMaintenance> LoadClinicMaintenance()
@@ -35,6 +44,30 @@ namespace Healthcare_App.ViewModel.Administrator
         #endregion
 
         #region Properies
+        public List<tblHealthcareInstitution> HealtcareIstitutions
+        {
+            get
+            {
+                return healthcareInstitutions;
+            }
+            set
+            {
+                healthcareInstitutions = value;
+                OnPropertyChanged(nameof(HealtcareIstitutions));
+            }
+        }
+        public tblHealthcareInstitution HealtcareIstitution
+        {
+            get
+            {
+                return healthcareInstitution;
+            }
+            set
+            {
+                healthcareInstitution = value;
+                OnPropertyChanged(nameof(HealtcareIstitution));
+            }
+        }
         public tblClinicMaintenance ClinicMaintenance
         {
             get
