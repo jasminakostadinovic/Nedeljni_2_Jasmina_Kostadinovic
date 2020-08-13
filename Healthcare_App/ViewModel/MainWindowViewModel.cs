@@ -4,6 +4,7 @@ using Healthcare_App.View;
 using Healthcare_App.View.Administrator;
 using Healthcare_App.View.Master;
 using Healthcare_App.View.Registration;
+using Healthcare_App.ViewModel.Administrator;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using HealthcareData.Validations;
@@ -119,11 +120,26 @@ namespace Healthcare_App.ViewModel
 				{
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicAdministrator))
 					{
-						var administrator = db.LoadManagerByUserDataId(userDataId);
-						AdministratorView administratorView = new AdministratorView();
-						loginView.Close();
-						administratorView.Show();
-						return;
+						if (!db.IsHealthcareInstitutionCreated())
+						{
+							var createInstitution = new AddNewHealthcareInstitutionView();
+							createInstitution.Show();
+							loginView.Close();
+							if ((createInstitution.DataContext as AddNewHealthcareInstitutionViewModel).IsAddedNewInstitution == true)
+							{
+								AdministratorView administratorView = new AdministratorView();
+								loginView.Close();
+								administratorView.Show();
+								return;
+							}
+						}
+						else
+						{
+							AdministratorView administratorView = new AdministratorView();
+							loginView.Close();
+							administratorView.Show();
+							return;
+						}				
 					}
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicDoctor))
 					{
@@ -163,6 +179,8 @@ namespace Healthcare_App.ViewModel
 			{
 				WarningView warning = new WarningView(loginView);
 				warning.Show("User name or password are not correct!");
+				UserName = null;
+				(obj as PasswordBox).Password = null;
 				return;
 			}
 		}

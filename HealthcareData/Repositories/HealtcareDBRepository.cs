@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.Entity;
+using System.Windows;
 
 namespace HealthcareData.Repositories
 {
@@ -101,6 +102,21 @@ namespace HealthcareData.Repositories
                     conn.tblClinicManagers.Add(manager);
                     conn.SaveChanges();
                     return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool IsHealthcareInstitutionCreated()
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return conn.tblHealthcareInstitutions.Any();
                 }
             }
             catch (Exception)
@@ -331,6 +347,23 @@ namespace HealthcareData.Repositories
                         return true;
                     }
                     return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool TryAddNewInstitution(tblHealthcareInstitution institution)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    conn.tblHealthcareInstitutions.Add(institution);
+                    conn.SaveChanges();
+                    return true;
                 }
             }
             catch (Exception)
