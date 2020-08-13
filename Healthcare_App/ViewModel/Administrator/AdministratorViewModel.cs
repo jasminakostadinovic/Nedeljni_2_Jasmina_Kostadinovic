@@ -122,8 +122,7 @@ namespace Healthcare_App.ViewModel.Administrator
             {
                 if (ClinicMaintenance != null)
                 {
-                    ShouldDeleteView deleteOrder = new ShouldDeleteView();
-                    //deleteOrder.Show("Are you sure you want to delete this clinic maintenance?");
+                    ShouldDeleteView deleteOrder = new ShouldDeleteView(); 
                     deleteOrder.lblText.Content = "Are you sure you want to delete this clinic maintenance?";
                     deleteOrder.ShowDialog();
                     if ((deleteOrder.DataContext as ShouldDeleteViewModel).ShouldDelete == true)

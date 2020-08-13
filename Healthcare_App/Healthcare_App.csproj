@@ -77,6 +77,9 @@
     <Compile Include="View\Administrator\AddNewClinicMaintenanceView.xaml.cs">
       <DependentUpon>AddNewClinicMaintenanceView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Administrator\AddNewHealthcareInstitutionView.xaml.cs">
+      <DependentUpon>AddNewHealthcareInstitutionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Administrator\AdministratorView.xaml.cs">
       <DependentUpon>AdministratorView.xaml</DependentUpon>
     </Compile>
@@ -121,6 +124,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\Administrator\AddNewClinicMaintenanceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Administrator\AddNewHealthcareInstitutionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
