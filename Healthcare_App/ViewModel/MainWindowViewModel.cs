@@ -2,6 +2,7 @@
 using Healthcare_App.Command;
 using Healthcare_App.View;
 using Healthcare_App.View.Administrator;
+using Healthcare_App.View.Maintenance;
 using Healthcare_App.View.Master;
 using Healthcare_App.View.Registration;
 using Healthcare_App.ViewModel.Administrator;
@@ -152,9 +153,9 @@ namespace Healthcare_App.ViewModel
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicMaintenance))
 					{
 						var maintenance = db.LoadMaintenanceByUserDataId(userDataId);
-						//MaintenanceView maintenanceView = new MaintenanceView(maintenance);
-						//loginView.Close();
-						//maintenanceView.Show();
+						MaintenanceView maintenanceView = new MaintenanceView(maintenance);
+						loginView.Close();
+						maintenanceView.Show();
 						return;
 					}
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicManager))

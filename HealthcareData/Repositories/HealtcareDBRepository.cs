@@ -148,9 +148,27 @@ namespace HealthcareData.Repositories
             {
                 using (var conn = new HealthcareSoftwareEntities())
                 {
-                    conn.tblClinicMaintenances.Add(maintenance);
-                    conn.SaveChanges();
-                    return true;
+                    if (!conn.tblClinicMaintenances.Any())
+                    {
+                        conn.tblClinicMaintenances.Add(maintenance);
+                        conn.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        if(conn.tblClinicMaintenances.Count() == 3)
+                        {
+                            var toRemove = conn.tblClinicMaintenances.First();
+                            conn.tblClinicMaintenances.Remove(toRemove);
+                            conn.tblClinicMaintenances.Add(maintenance);
+                            conn.SaveChanges();
+                            return true;
+                        }
+                        conn.tblClinicMaintenances.Add(maintenance);
+                        conn.SaveChanges();
+                        return true;
+                    }
+                
                 }
             }
             catch (Exception)

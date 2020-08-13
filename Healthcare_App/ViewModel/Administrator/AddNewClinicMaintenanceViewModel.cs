@@ -297,7 +297,7 @@ namespace Healthcare_App.ViewModel.Administrator
                 {
                     var culture = CultureInfo.InvariantCulture;
                     var styles = DateTimeStyles.None;
-                    if (!DateTime.TryParse(DateOfBirth, culture, styles, out dateDateValue))
+                    if (!DateTime.TryParse(DateOfBirth, culture, styles, out dateDateValue) || dateDateValue.Year < 1900)
                     {
                         validationMessage = "Invalid date format! use: [4/10/2008]";
                         CanSave = false;
