@@ -20,6 +20,8 @@ namespace Healthcare_App.ViewModel.Administrator
         private tblClinicMaintenance clinicMaintenance;
         private List<tblHealthcareInstitution> healthcareInstitutions;
         private tblHealthcareInstitution healthcareInstitution;
+        private List<tblClinicManager> managers;
+        private tblClinicManager manager;
         #endregion
 
         #region Constructor
@@ -30,6 +32,13 @@ namespace Healthcare_App.ViewModel.Administrator
             ClinicMaintenances = LoadClinicMaintenance();
             HealtcareIstitution = new tblHealthcareInstitution();
             HealtcareIstitutions = LoadHealthcareInstitutions();
+            Manager = new tblClinicManager();
+            Managers = LoadClinicManagers();
+        }
+
+        private List<tblClinicManager> LoadClinicManagers()
+        {
+            return db.LoadManagers();
         }
 
         private List<tblHealthcareInstitution> LoadHealthcareInstitutions()
@@ -44,6 +53,30 @@ namespace Healthcare_App.ViewModel.Administrator
         #endregion
 
         #region Properies
+        public List<tblClinicManager> Managers
+        {
+            get
+            {
+                return managers;
+            }
+            set
+            {
+                managers = value;
+                OnPropertyChanged(nameof(Managers));
+            }
+        }
+        public tblClinicManager Manager
+        {
+            get
+            {
+                return manager;
+            }
+            set
+            {
+                manager = value;
+                OnPropertyChanged(nameof(Manager));
+            }
+        }
         public List<tblHealthcareInstitution> HealtcareIstitutions
         {
             get
@@ -176,6 +209,39 @@ namespace Healthcare_App.ViewModel.Administrator
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        //adding new Clinic Maintenance
+
+        private ICommand addNewManager;
+        public ICommand AddNewManager
+        {
+            get
+            {
+                if (addNewManager == null)
+                {
+                    addNewManager = new RelayCommand(param => AddNewManagerExecute(), param => CanAddNewManager());
+                }
+                return addNewManager;
+            }
+        }
+
+        private void AddNewManagerExecute()
+        {
+            try
+            {
+                AddNewManagerView addNewManagerView = new AddNewManagerView();
+                addNewManagerView.ShowDialog();
+                adminView.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+        private bool CanAddNewManager()
+        {
+            return true;
         }
         //logging out
 

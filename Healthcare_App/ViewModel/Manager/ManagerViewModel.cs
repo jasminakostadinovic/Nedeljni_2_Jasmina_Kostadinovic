@@ -19,6 +19,7 @@ namespace Healthcare_App.ViewModel.Manager
         private int managerId;
         private int doctorCount;
         private int maxDoctorsCount;
+        private int omissionCount;
         #endregion
 
         #region Constructor
@@ -29,6 +30,7 @@ namespace Healthcare_App.ViewModel.Manager
             Doctors = LoadDoctors();
             managerId = manager.ClinicManagerID;
             maxDoctorsCount = manager.MaxCountOfDoctors;
+            omissionCount = manager.OmissionsCount;
         }
 
         private List<tblClinicDoctor> LoadDoctors()
@@ -85,9 +87,14 @@ namespace Healthcare_App.ViewModel.Manager
         {
             try
             {
-                AddNewDoctorView addNewDoctorView = new AddNewDoctorView();
+                AddNewDoctorView addNewDoctorView = new AddNewDoctorView(managerId);
                 addNewDoctorView.ShowDialog();
-                managerView.Close();
+                if ((addNewDoctorView.DataContext as AddNewDoctorViewModel).IsAddedNewDoctor == true)
+                {
+                    Doctors = LoadDoctors();
+                    doctorCount++;
+                }
+
             }
             catch (Exception ex)
             {
@@ -96,6 +103,9 @@ namespace Healthcare_App.ViewModel.Manager
         }
         private bool CanAddNewDoctor()
         {
+            if (maxDoctorsCount - doctorCount == 0 
+                || omissionCount > 5)
+                return false;
             return true;
         }
 

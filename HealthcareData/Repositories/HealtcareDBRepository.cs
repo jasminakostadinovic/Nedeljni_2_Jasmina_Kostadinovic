@@ -192,7 +192,7 @@ namespace HealthcareData.Repositories
             }
         }
 
-        public object LoadManagerByUserDataId(int userDataId)
+        public tblClinicManager LoadManagerByUserDataId(int userDataId)
         {
             try
             {

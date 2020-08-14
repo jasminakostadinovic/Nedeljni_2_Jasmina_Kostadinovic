@@ -251,7 +251,7 @@ namespace Healthcare_App.ViewModel.Manager
         }
         #endregion
         #region Constructors
-        public AddNewDoctorViewModel(AddNewDoctorView addNewDoctorView, tblClinicManager manager)
+        public AddNewDoctorViewModel(AddNewDoctorView addNewDoctorView, int managerId)
         {
             this.addNewDoctorView = addNewDoctorView;
             IDCardNo = string.Empty;
@@ -269,7 +269,7 @@ namespace Healthcare_App.ViewModel.Manager
             Doctor = new tblClinicDoctor();
             CanSave = true;
             userData = new tblHealthcareUserData();
-            managerId = manager.ClinicManagerID;
+            this.managerId = managerId;
         }
 
         #endregion
@@ -435,6 +435,7 @@ namespace Healthcare_App.ViewModel.Manager
                         Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new clinic maintenance with ID Card Number : '{IDCardNo}'");
                         MessageBox.Show("The new clinic maintenance is sucessfully created.");
                     }
+                    
                     addNewDoctorView.Close();
                     return;
                 }

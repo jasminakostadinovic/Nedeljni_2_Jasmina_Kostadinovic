@@ -9,10 +9,10 @@ namespace Healthcare_App.View.Manager
     /// </summary>
     public partial class AddNewDoctorView : Window
     {
-        public AddNewDoctorView(tblClinicManager manager)
+        public AddNewDoctorView(int managerId)
         {
             InitializeComponent();
-            this.DataContext = new AddNewDoctorViewModel(this, manager);
+            this.DataContext = new AddNewDoctorViewModel(this, managerId);
         }
     }
 }
