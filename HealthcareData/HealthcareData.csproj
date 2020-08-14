@@ -71,6 +71,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HealthcareModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\tblClinicAdministrator.cs">
       <DependentUpon>HealthcareModel.tt</DependentUpon>
     </Compile>

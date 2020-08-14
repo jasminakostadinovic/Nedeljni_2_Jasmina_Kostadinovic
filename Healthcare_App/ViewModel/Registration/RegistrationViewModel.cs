@@ -1,89 +1,65 @@
 ﻿using DataValidations;
 using Healthcare_App.Command;
 using Healthcare_App.Loggers;
-using Healthcare_App.View.Administrator;
+using Healthcare_App.View.Registration;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using HealthcareData.Validations;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
-namespace Healthcare_App.ViewModel.Administrator
+namespace Healthcare_App.ViewModel.Registration
 {
-    class AddNewManagerViewModel : ViewModelBase, IDataErrorInfo
+    class RegistrationViewModel : ViewModelBase, IDataErrorInfo
     {
         #region Fields
-        private readonly AddNewManagerView  addNewManagerView;
-        private tblClinicManager manager;    
+        private readonly RegistrationView registrationView;
+        private tblClinicPatient patient;
         private tblHealthcareUserData healthcareUserData;
         private UserData userData;
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
-        private string floorNumber;
-        private int floorNumberValue;
-        private string maxCountOfDoctors;
-        private int maxCountOfDoctorsValue;
-        private string minCountOfRooms;
-        private int minCountOfRoomsValue;
-
+        private List<tblClinicDoctor> doctors;
+        private tblClinicDoctor doctor;
+        private string healthInsuranceCardNo;
         #endregion
-        #region Properties  
-        public string MinCountOfRooms
+        #region Properties
+        public string HealthInsuranceCardNo
         {
             get
             {
-                return minCountOfRooms;
+                return healthInsuranceCardNo;
             }
             set
             {
-                if (minCountOfRooms == value) return;
-                minCountOfRooms = value;
-                OnPropertyChanged(nameof(MinCountOfRooms));
+                healthInsuranceCardNo = value;
+                OnPropertyChanged(nameof(HealthInsuranceCardNo));
             }
         }
-        public string MaxCountOfDoctors
+        public tblClinicDoctor Doctor
         {
             get
             {
-                return maxCountOfDoctors;
+                return doctor;
             }
             set
             {
-                if (maxCountOfDoctors == value) return;
-                maxCountOfDoctors = value;
-                OnPropertyChanged(nameof(MaxCountOfDoctors));
+                doctor = value;
+                OnPropertyChanged(nameof(Doctor));
             }
         }
-        public string FloorNumber
+        public List<tblClinicDoctor> Doctors
         {
             get
             {
-                return floorNumber;
+                return doctors;
             }
             set
             {
-                if (floorNumber == value) return;
-                floorNumber = value;
-                OnPropertyChanged(nameof(FloorNumber));
-            }
-        }
-        public bool IsAddedNewManager { get; internal set; }       
-        public tblClinicManager Manager
-        {
-            get
-            {
-                return manager;
-            }
-            set
-            {
-                manager = value;
-                OnPropertyChanged(nameof(Manager));
+                doctors = value;
+                OnPropertyChanged(nameof(Doctors));
             }
         }
         public UserData UserData
@@ -97,20 +73,34 @@ namespace Healthcare_App.ViewModel.Administrator
                 userData = value;
                 OnPropertyChanged(nameof(UserData));
             }
+        }  
+      
+        public bool IsAddedNewPatient { get; internal set; }
+
+        public tblClinicPatient Patient
+        {
+            get
+            {
+                return patient;
+            }
+            set
+            {
+                patient = value;
+                OnPropertyChanged(nameof(Patient));
+            }
         }
         #endregion
         #region Constructors
-        public AddNewManagerViewModel(AddNewManagerView addNewManagerView)
+        public RegistrationViewModel(RegistrationView registrationView)
         {
-            this.addNewManagerView = addNewManagerView;     
-            Manager = new tblClinicManager();
+            this.registrationView = registrationView;
+            HealthInsuranceCardNo = string.Empty;
+            Patient = new tblClinicPatient();
             healthcareUserData = new tblHealthcareUserData();
-            MaxCountOfDoctors = string.Empty;
-            MinCountOfRooms = string.Empty;
-            FloorNumber = string.Empty;
             UserData = new UserData();
+            Doctor = new tblClinicDoctor();
+            Doctors = db.LoadDoctors();
         }
-
         #endregion
 
         #region IDataErrorInfoImplementation
@@ -128,31 +118,15 @@ namespace Healthcare_App.ViewModel.Administrator
         {
             get
             {
+                var validate = new Validations();
+                var companyValidation = new HealthcareValidations();
                 string validationMessage = string.Empty;
-                if (name == nameof(MaxCountOfDoctors))
+              if (name == nameof(HealthInsuranceCardNo))
                 {
-                    if (!int.TryParse(MaxCountOfDoctors, out maxCountOfDoctorsValue) 
-                        || maxCountOfDoctorsValue < 0)
+                    if (!validate.IsDigitsOnly(HealthInsuranceCardNo)
+                        || !companyValidation.IsUniqueHealthInsuranceCardNo(HealthInsuranceCardNo))
                     {
-                        validationMessage = "Invalid number format!";
-                        UserData.CanSave = false;
-                    }
-                }
-                else if (name == nameof(MinCountOfRooms))
-                {
-                    if (!int.TryParse(MinCountOfRooms, out minCountOfRoomsValue) 
-                        || minCountOfRoomsValue < 0)
-                    {
-                        validationMessage = "Invalid number format!";
-                        UserData.CanSave = false;
-                    }
-                }
-                else if (name == nameof(FloorNumber))
-                {
-                    if (!int.TryParse(FloorNumber, out floorNumberValue) 
-                        || floorNumberValue < 0)
-                    {
-                        validationMessage = "Invalid number format!";
+                        validationMessage = "Health Insurance Card No must be unique and must contains digits only!";
                         UserData.CanSave = false;
                     }
                 }
@@ -189,9 +163,7 @@ namespace Healthcare_App.ViewModel.Administrator
                 || string.IsNullOrWhiteSpace(UserData.IDCardNo)
                 || string.IsNullOrWhiteSpace(UserData.Username)
                 || string.IsNullOrWhiteSpace(UserData.Password)
-                || string.IsNullOrWhiteSpace(MaxCountOfDoctors)
-                || string.IsNullOrWhiteSpace(MinCountOfRooms)
-                || string.IsNullOrWhiteSpace(FloorNumber)
+                || string.IsNullOrWhiteSpace(HealthInsuranceCardNo)
                 || UserData.CanSave == false)
                 return false;
             return true;
@@ -209,30 +181,28 @@ namespace Healthcare_App.ViewModel.Administrator
                 healthcareUserData.Username = UserData.Username;
                 healthcareUserData.Password = SecurePasswordHasher.Hash(UserData.Password);
 
-                //adding new administrator to database 
+                //adding new doctor to database 
                 db.TryAddNewUserData(healthcareUserData);
                 var userId = db.GetUserDataId(UserData.Username);
                 if (userId != 0)
-                {
-                    manager.UserDataID = userId;
-                    manager.FloorNumber = floorNumberValue;
-                    manager.MaxCountOfDoctors = maxCountOfDoctorsValue;
-                    manager.MinCountOfRooms = minCountOfRoomsValue;
+                {                    
+                    patient.UserDataID = userId;
+                    patient.HealthInsuranceCardNo = HealthInsuranceCardNo;
+                    patient.ClinicDoctorID = Doctor.ClinicDoctorID;
+                    patient.NumberOfDoctor = Doctor.Number;
 
-                    IsAddedNewManager = db.TryAddNewManager(manager);
-                    if (IsAddedNewManager == false)
+                    IsAddedNewPatient = db.TryAddNewPatient(patient);
+                    if (IsAddedNewPatient == false)
                     {
-                        MessageBox.Show("Something went wrong. New clinic manager is not created.");
+                        MessageBox.Show("Something went wrong. New patient is not created.");
                         db.TryRemoveUserData(userId);
                     }
                     else
                     {
-                        Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new clinic manager with ID Card Number : '{UserData.IDCardNo}'");
-                        MessageBox.Show("The new clinic manager is sucessfully created.");
+                        Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new patient with ID Card Number : '{UserData.IDCardNo}'");
+                        MessageBox.Show("The new patient is sucessfully created.");
                     }
-                    AdministratorView administratorView = new AdministratorView();
-                    addNewManagerView.Close();
-                    administratorView.Show();
+                    registrationView.Close();
                     return;
                 }
             }
@@ -262,8 +232,8 @@ namespace Healthcare_App.ViewModel.Administrator
 
         private void ExitExecute()
         {
-            IsAddedNewManager = false;
-            addNewManagerView.Close();
+            IsAddedNewPatient = false;
+            registrationView.Close();
         }
         #endregion
     }

@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Interfaces\ISaveCommand.cs" />
     <Compile Include="Loggers\Logger.cs" />
     <Compile Include="ViewModel\Administrator\AddNewClinicMaintenanceViewModel.cs" />
     <Compile Include="ViewModel\Administrator\AddNewHealthcareInstitutionViewModel.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="ViewModel\Manager\ManagerViewModel.cs" />
     <Compile Include="ViewModel\Master\AddNewClinicAdministratorViewModel.cs" />
     <Compile Include="ViewModel\Master\MasterViewModel.cs" />
+    <Compile Include="ViewModel\Registration\RegistrationViewModel.cs" />
     <Compile Include="ViewModel\ShouldDeleteViewModel.cs" />
     <Compile Include="ViewModel\UserData.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />

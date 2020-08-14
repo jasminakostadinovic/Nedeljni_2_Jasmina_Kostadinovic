@@ -113,5 +113,20 @@ namespace HealthcareData.Validations
                 return false;
             }
         }
+
+        public bool IsUniqueHealthInsuranceCardNo(string healthInsuranceCardNo)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return !conn.tblClinicPatients.Any(x => x.HealthInsuranceCardNo == healthInsuranceCardNo);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

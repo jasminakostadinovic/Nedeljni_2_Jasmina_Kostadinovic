@@ -12,6 +12,8 @@ using HealthcareData.Repositories;
 using HealthcareData.Validations;
 using System;
 using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -25,6 +27,7 @@ namespace Healthcare_App.ViewModel
 		private string masterUserName;
 		private string masterPassword;
 		readonly MainWindow loginView;
+		private readonly HealtcareDBRepository db = new HealtcareDBRepository();
 		#endregion
 
 		#region Constructor
@@ -105,7 +108,6 @@ namespace Healthcare_App.ViewModel
 			string password = (obj as PasswordBox).Password;
 			var validate = new Validations();
 			var validateHealthcareData = new HealthcareValidations();
-			var db = new HealtcareDBRepository();
 			masterUserName = ReadMasterUsername();
 			masterPassword = ReadMasterPasword();
 			if (UserName == masterUserName && password == masterPassword)
@@ -195,15 +197,20 @@ namespace Healthcare_App.ViewModel
 			{
 				if (registrateCommand == null)
 				{
-					registrateCommand = new RelayCommand(Registrate);
+					registrateCommand = new RelayCommand(Register);
 					return registrateCommand;
 				}
 				return registrateCommand;
 			}
 		}
 
-		private void Registrate(object obj)
+		private void Register(object obj)
 		{
+			if (!db.LoadDoctors().Any())
+			{
+				MessageBox.Show("You can not register as a patient at the moment. There is no available doctor. Please, try later."); loginView.Close();
+				return;
+			}
 			RegistrationView registrateView = new RegistrationView();
 			loginView.Close();
 			registrateView.Show();

@@ -63,35 +63,35 @@ Path=(Validation.Errors)[0].ErrorContent}"/>
         
         <TextBox Grid.Column="3" Grid.Row="1" Name="txtClientGivenName" Height="20" MinWidth="200"
                  TextWrapping="Wrap"
-                 Text="{Binding GivenName, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding UserData.GivenName, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBox Grid.Column="3" Grid.Row="3" Name="txtClientSurname" Height="20" MinWidth="200"
                  TextWrapping="Wrap"
-                 Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"/>
+                 Text="{Binding UserData.Surname, UpdateSourceTrigger=PropertyChanged}"/>
 
         <TextBox Grid.Column="3" Grid.Row="5" Name="txtIDCardNo" Height="20" MinWidth="200"
                  TextWrapping="Wrap"
-                 Text="{Binding IDCardNo, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                 Text="{Binding UserData.IDCardNo, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 
         <ComboBox Grid.Column="3" Grid.Row="7" Name="cmbSex" Height="20" Width="auto" 
-                 IsEditable="True" ItemsSource="{Binding SexTypes, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Sex, UpdateSourceTrigger=PropertyChanged}" />
+                 IsEditable="True" ItemsSource="{Binding UserData.SexTypes, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding UserData.Sex, UpdateSourceTrigger=PropertyChanged}" />
 
         <TextBox Grid.Column="3" Grid.Row="9" Name="txtDateOfBirth" Height="20" MinWidth="200"
                  TextWrapping="Wrap"
-                 Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                 Text="{Binding UserData.DateOfBirth, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 
         <TextBox Grid.Column="3" Grid.Row="11" Name="txtCitizenship" Height="20" MinWidth="200"
                  TextWrapping="Wrap"
-                 Text="{Binding Citizenship, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                 Text="{Binding UserData.Citizenship, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 
         <TextBox Grid.Column="3" Grid.Row="13" Name="txtUsername" Height="20" MinWidth="200"
                  TextWrapping="Wrap"
-                 Text="{Binding Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                 Text="{Binding UserData.Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 
         <TextBox Grid.Column="3" Grid.Row="15" Name="txtPassword" Height="20" MinWidth="200"
                  TextWrapping="Wrap"
-                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                 Text="{Binding UserData.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
         
         <Button Grid.Column="3" Grid.Row="17" Name="btnSave" Content="Save" Height="20" Width="70" HorizontalAlignment="Right"
                 Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}" Background="#545d6a" Foreground="White"  />

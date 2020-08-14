@@ -4,155 +4,24 @@ using Healthcare_App.Loggers;
 using Healthcare_App.View.Master;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
-using HealthcareData.Validations;
 using System;
-using System.ComponentModel;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 
 namespace Healthcare_App.ViewModel.Master
 {
-    class AddNewClinicAdministratorViewModel : ViewModelBase, IDataErrorInfo
+    class AddNewClinicAdministratorViewModel : ViewModelBase
     {
         #region Fields
         private readonly AddNewClinicAdministratorView addNewAdministratorView;
-        private tblClinicAdministrator administrator;
-        private string surname;
-        private string givenName;
-        private string idCardNo;
-        private string sex;
-        private string citizenship;
-        private string dateOfBirth;
-        private DateTime dateDateValue;
-        private string username;
-        private string password;
-        private tblHealthcareUserData userData;
+        private tblClinicAdministrator administrator;     
+        private tblHealthcareUserData healthcareUserData;
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
-        private string[] sexTypes = new string[] { "M", "F", "N", "X" };
+        private UserData userData;
         #endregion
         #region Properties
         public bool IsAddedNewAdministrator { get; internal set; }
-        public bool CanSave { get; set; }
-        public string DateOfBirth
-        {
-            get
-            {
-                return dateOfBirth;
-            }
-            set
-            {
-                if (dateOfBirth == value) return;
-                dateOfBirth = value;
-                OnPropertyChanged(nameof(DateOfBirth));
-            }
-        }
-        public string[] SexTypes
-        {
-            get
-            {
-                return sexTypes;
-            }
-            set
-            {
-                if (sexTypes == value) return;
-                sexTypes = value;
-                OnPropertyChanged(nameof(SexTypes));
-            }
-        }
-        public string Password
-        {
-            get
-            {
-                return password;
-            }
-            set
-            {
-                if (password == value) return;
-                password = value;
-                OnPropertyChanged(nameof(Password));
-            }
-        }
-        public string Username
-        {
-            get
-            {
-                return username;
-            }
-            set
-            {
-                if (username == value) return;
-                username = value;
-                OnPropertyChanged(nameof(Username));
-            }
-        }
-        public string Citizenship
-        {
-            get
-            {
-                return citizenship;
-            }
-            set
-            {
-                if (citizenship == value) return;
-                citizenship = value;
-                OnPropertyChanged(nameof(Citizenship));
-            }
-        }
-        public string Sex
-        {
-            get
-            {
-                return sex;
-            }
-            set
-            {
-                if (sex == value) return;
-                sex = value;
-                OnPropertyChanged(nameof(Sex));
-            }
-        }
-        public string IDCardNo
-        {
-            get
-            {
-                return idCardNo;
-            }
-            set
-            {
-                if (idCardNo == value) return;
-                idCardNo = value;
-                OnPropertyChanged(nameof(IDCardNo));
-            }
-        }
-        public string Surname
-        {
-            get
-            {
-                return surname;
-            }
-            set
-            {
-                if (surname == value) return;
-                surname = value;
-                OnPropertyChanged(nameof(Surname));
-            }
-        }
-
-        public string GivenName
-        {
-            get
-            {
-                return givenName;
-            }
-            set
-            {
-                if (givenName == value) return;
-                givenName = value;
-                OnPropertyChanged(nameof(GivenName));
-            }
-        }
-
+    
         public tblClinicAdministrator Administrator
         {
             get
@@ -165,92 +34,29 @@ namespace Healthcare_App.ViewModel.Master
                 OnPropertyChanged(nameof(Administrator));
             }
         }
+        public UserData UserData
+        {
+            get
+            {
+                return userData;
+            }
+            set
+            {
+                userData = value;
+                OnPropertyChanged(nameof(UserData));
+            }
+        }
         #endregion
         #region Constructors
         public AddNewClinicAdministratorViewModel(AddNewClinicAdministratorView addNewAdministratorView)
         {
             this.addNewAdministratorView = addNewAdministratorView;
-            IDCardNo = string.Empty;
-            Sex = string.Empty;
-            Citizenship = string.Empty;
-            Username = string.Empty;
-            Password = string.Empty;
-            GivenName = string.Empty;
-            Surname = string.Empty;
-            Administrator = new tblClinicAdministrator();
-            CanSave = true;
-            userData = new tblHealthcareUserData();
+            UserData = new UserData();       
+            Administrator = new tblClinicAdministrator();     
+            healthcareUserData = new tblHealthcareUserData();
         }
 
-        #endregion
-
-        #region IDataErrorInfoImplementation
-        //validations
-
-        public string Error
-        {
-            get
-            {
-                return null;
-            }
-        }
-
-        public string this[string name]
-        {
-            get
-            {
-                CanSave = true;
-                var validate = new Validations();
-                var companyValidation = new HealthcareValidations();
-                string validationMessage = string.Empty;
-
-                if (name == nameof(IDCardNo))
-                {
-                    if (!validate.IsValidIDCardFormat(IDCardNo))
-                    {
-                        validationMessage = "Invalid ID Card number format!";
-                        CanSave = false;
-                    }
-                    
-                    if (!companyValidation.IsUniqueIDCardNo(IDCardNo))
-                    {
-                        validationMessage = "ID Card number must be unique!";
-                        CanSave = false;
-                    }
-                }
-                else if (name == nameof(Username))
-                {
-                    if (!companyValidation.IsUniqueUsername(Username))
-                    {
-                        validationMessage = "Username number must be unique!";
-                        CanSave = false;
-                    }
-                }
-                else if (name == nameof(Password))
-                {
-                    if (!validate.IsValidPasswordFormat(Password))
-                    {
-                        validationMessage = "Password must be between at least 8 characters long, must contains at least one number, uppercase letter and special character.";
-                        CanSave = false;
-                    }
-                }
-                else if (name == nameof(DateOfBirth))
-                {
-                    var culture = CultureInfo.InvariantCulture;
-                    var styles = DateTimeStyles.None;
-                    if (!DateTime.TryParse(DateOfBirth, culture, styles, out dateDateValue) || dateDateValue.Year < 1900)
-                    {
-                        validationMessage = "Invalid date format! use: [4/10/2008]";
-                        CanSave = false;
-                    }
-                }
-                if (string.IsNullOrEmpty(validationMessage))
-                    CanSave = true;
-
-                return validationMessage;
-            }
-        }
-        #endregion
+        #endregion     
 
         #region Commands
         private ICommand save;
@@ -269,15 +75,15 @@ namespace Healthcare_App.ViewModel.Master
         private bool CanSaveExecute()
         {
             if (
-                string.IsNullOrWhiteSpace(GivenName)
-                || string.IsNullOrWhiteSpace(Surname)
-                || string.IsNullOrWhiteSpace(Sex)
-                || string.IsNullOrWhiteSpace(Citizenship)
-                || string.IsNullOrWhiteSpace(DateOfBirth)
-                || string.IsNullOrWhiteSpace(IDCardNo)
-                || string.IsNullOrWhiteSpace(Username)
-                || string.IsNullOrWhiteSpace(Password)
-                || CanSave == false)
+                string.IsNullOrWhiteSpace(UserData.GivenName)
+                || string.IsNullOrWhiteSpace(UserData.Surname)
+                || string.IsNullOrWhiteSpace(UserData.Sex)
+                || string.IsNullOrWhiteSpace(UserData.Citizenship)
+                || string.IsNullOrWhiteSpace(UserData.DateOfBirth)
+                || string.IsNullOrWhiteSpace(UserData.IDCardNo)
+                || string.IsNullOrWhiteSpace(UserData.Username)
+                || string.IsNullOrWhiteSpace(UserData.Password)
+                || UserData.CanSave == false)
                 return false;
             return true;
         }
@@ -285,18 +91,18 @@ namespace Healthcare_App.ViewModel.Master
         {
             try
             {
-                userData.GivenName = GivenName;
-                userData.Surname = Surname;
-                userData.IDCardNo = IDCardNo;
-                userData.Sex = Sex;
-                userData.DateOfBirth = dateDateValue;
-                userData.Citizenship = Citizenship;
-                userData.Username = Username;
-                userData.Password = SecurePasswordHasher.Hash(Password);
+                healthcareUserData.GivenName = UserData.GivenName;
+                healthcareUserData.Surname = UserData.Surname;
+                healthcareUserData.IDCardNo = UserData.IDCardNo;
+                healthcareUserData.Sex = UserData.Sex;
+                healthcareUserData.DateOfBirth = UserData.dateDateValue;
+                healthcareUserData.Citizenship = UserData.Citizenship;
+                healthcareUserData.Username = UserData.Username;
+                healthcareUserData.Password = SecurePasswordHasher.Hash(UserData.Password);
            
                 //adding new administrator to database 
-                db.TryAddNewUserData(userData);
-                var userId = db.GetUserDataId(Username);
+                db.TryAddNewUserData(healthcareUserData);
+                var userId = db.GetUserDataId(UserData.Username);
                 if (userId != 0)
                 {
                     administrator.UserDataID = userId;
@@ -308,7 +114,7 @@ namespace Healthcare_App.ViewModel.Master
                     }               
                     else
                     {
-                        Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new administrator with ID Card Number : '{IDCardNo}'");
+                        Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new administrator with ID Card Number : '{UserData.IDCardNo}'");
                         MessageBox.Show("The new clinic administrator is sucessfully created.");
                     }
                     MasterView masterView = new MasterView();

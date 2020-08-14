@@ -29,26 +29,11 @@ namespace Healthcare_App.ViewModel.Administrator
         {
             this.adminView = adminView;
             ClinicMaintenance = new tblClinicMaintenance();
-            ClinicMaintenances = LoadClinicMaintenance();
+            ClinicMaintenances = db.LoadMaintenances();
             HealtcareIstitution = new tblHealthcareInstitution();
-            HealtcareIstitutions = LoadHealthcareInstitutions();
+            HealtcareIstitutions = db.LoadHealthcareInstitutions();
             Manager = new tblClinicManager();
-            Managers = LoadClinicManagers();
-        }
-
-        private List<tblClinicManager> LoadClinicManagers()
-        {
-            return db.LoadManagers();
-        }
-
-        private List<tblHealthcareInstitution> LoadHealthcareInstitutions()
-        {
-            return db.LoadHealthcareInstitutions();
-        }
-
-        private List<tblClinicMaintenance> LoadClinicMaintenance()
-        {
-            return db.LoadMaintenances();
+            Managers = db.LoadManagers();
         }
         #endregion
 
@@ -198,7 +183,7 @@ namespace Healthcare_App.ViewModel.Administrator
                         {
                             db.TryRemoveUserData(ClinicMaintenance.UserDataID);
                             MessageBox.Show("You have successfully deleted the clinic maintenance.");
-                            ClinicMaintenances = LoadClinicMaintenance();
+                            ClinicMaintenances = db.LoadMaintenances();
                         }
                         else
                             MessageBox.Show("Something went wrong. The clinic maintenance is not deleted.");
@@ -211,7 +196,7 @@ namespace Healthcare_App.ViewModel.Administrator
             }
         }
 
-        //adding new Clinic Maintenance
+        //adding new manager
 
         private ICommand addNewManager;
         public ICommand AddNewManager

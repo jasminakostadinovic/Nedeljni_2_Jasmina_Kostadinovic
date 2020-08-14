@@ -109,7 +109,7 @@
         
         <Button Grid.Column="1" Grid.Row="1" Content="Add New Clinic Manager" Name="btnAddNewClinicManager" HorizontalAlignment="Center" 
                 VerticalAlignment="Top" Width="auto"  
-                Command="{Binding AddNewClinicManager, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding AddNewManager, UpdateSourceTrigger=PropertyChanged}"
                 Background="#545d6a" Foreground="White"/>
 
         <Button Grid.Column="1" Grid.Row="1" Content="Logout" Name="btnLogout" HorizontalAlignment="Right" 
