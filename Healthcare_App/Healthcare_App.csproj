@@ -71,6 +71,7 @@
     <Compile Include="ViewModel\Administrator\AdministratorViewModel.cs" />
     <Compile Include="ViewModel\Maintenance\MaintenanceViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\Manager\AddNewDoctorViewModel.cs" />
     <Compile Include="ViewModel\Manager\ManagerViewModel.cs" />
     <Compile Include="ViewModel\Master\AddNewClinicAdministratorViewModel.cs" />
     <Compile Include="ViewModel\Master\MasterViewModel.cs" />

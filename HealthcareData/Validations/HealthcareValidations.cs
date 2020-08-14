@@ -83,5 +83,35 @@ namespace HealthcareData.Validations
                 return false;
             }
         }
+
+        public bool IsUniqueDoctorNumber(string number)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return !conn.tblClinicDoctors.Any(x => x.Number == number);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public bool IsUniqueBankAccountNumber(string bankAccountNo)
+        {
+            try
+            {
+                using (var conn = new HealthcareSoftwareEntities())
+                {
+                    return !conn.tblClinicDoctors.Any(x => x.BankAccountNo == bankAccountNo);
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

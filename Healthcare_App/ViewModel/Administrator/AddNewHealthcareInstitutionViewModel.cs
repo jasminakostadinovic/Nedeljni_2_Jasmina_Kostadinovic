@@ -44,7 +44,7 @@ namespace Healthcare_App.ViewModel.Administrator
             {
                 hasBackyard = value;
                 hasBackyard = (hasBackyard != null) ? value : false;
-                OnPropertyChanged(nameof(HasBalcony));
+                OnPropertyChanged(nameof(HasBackyard));
             }
         }
         public bool? HasBalcony
