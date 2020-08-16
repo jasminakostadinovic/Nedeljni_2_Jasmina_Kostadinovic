@@ -1,9 +1,9 @@
 ﻿using Healthcare_App.Command;
 using Healthcare_App.View.Maintenance;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Models;
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -22,7 +22,7 @@ namespace Healthcare_App.ViewModel.Maintenance
         private string maintenancePath;
         #endregion
         #region Properties
-
+        public ILogoutCommand LogoutMaintenance { get; set; }
         public bool CanSave { get; set; }
         public string Project
         {
@@ -37,7 +37,6 @@ namespace Healthcare_App.ViewModel.Maintenance
                 OnPropertyChanged(nameof(Project));
             }
         }
-
         public string Hours
         {
             get
@@ -60,6 +59,7 @@ namespace Healthcare_App.ViewModel.Maintenance
             this.maintenance = maintenance;
             maintenanceId = maintenance.ClinicMaintenanceID;
             maintenancePath = GeneratePath();
+            LogoutMaintenance = new LogoutCommand(new LogoutMaintenance(maintenanceView));
         }
 
         private string GeneratePath()
@@ -157,36 +157,6 @@ namespace Healthcare_App.ViewModel.Maintenance
                 MessageBox.Show(ex.ToString());
             }
         }
-
-
-        //Escaping action
-        private ICommand exit;
-        public ICommand Exit
-        {
-            get
-            {
-                if (exit == null)
-                {
-                    exit = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
-                }
-                return exit;
-            }
-        }
-
-
-        private bool CanExitExecute()
-        {
-            return true;
-        }
-
-        private void ExitExecute()
-        {
-            MainWindow loginWindow = new MainWindow();
-            maintenanceView.Close();
-            loginWindow.Show();
-
-        }
-
         #endregion
     }
 }

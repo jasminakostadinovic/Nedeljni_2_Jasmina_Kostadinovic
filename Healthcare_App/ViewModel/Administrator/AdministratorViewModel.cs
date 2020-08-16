@@ -229,34 +229,7 @@ namespace Healthcare_App.ViewModel.Administrator
         private bool CanAddNewManager()
         {
             return true;
-        }
-
-        //logging out
-
-        //private ICommand logout;
-        //public ICommand Logout
-        //{
-        //    get
-        //    {
-        //        if (logout == null)
-        //        {
-        //            logout = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
-        //        }
-        //        return logout;
-        //    }
-        //}
-
-        //private bool CanExitExecute()
-        //{
-        //    return true;
-        //}
-
-        //private void ExitExecute()
-        //{
-        //    MainWindow loginWindow = new MainWindow();
-        //    adminView.Close();
-        //    loginWindow.Show();
-        //}
+        }      
         #endregion
     }
 }
