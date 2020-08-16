@@ -164,6 +164,7 @@ namespace Healthcare_App.ViewModel.Registration
                 || string.IsNullOrWhiteSpace(UserData.Username)
                 || string.IsNullOrWhiteSpace(UserData.Password)
                 || string.IsNullOrWhiteSpace(HealthInsuranceCardNo)
+                || string.IsNullOrWhiteSpace(Doctor.Number)
                 || UserData.CanSave == false)
                 return false;
             return true;
@@ -232,6 +233,8 @@ namespace Healthcare_App.ViewModel.Registration
 
         private void ExitExecute()
         {
+            MainWindow loginWindow = new MainWindow();     
+            loginWindow.Show();
             IsAddedNewPatient = false;
             registrationView.Close();
         }

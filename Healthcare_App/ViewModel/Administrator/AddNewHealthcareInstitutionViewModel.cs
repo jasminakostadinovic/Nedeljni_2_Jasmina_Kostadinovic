@@ -361,8 +361,9 @@ namespace Healthcare_App.ViewModel.Administrator
 
         private void ExitExecute()
         {
+            AdministratorView administratorView = new AdministratorView();
+            administratorView.Show();
             IsAddedNewInstitution = false;
-
             addNewHealthcareInstitutionView.Close();
         }
         #endregion

@@ -225,6 +225,8 @@ namespace Healthcare_App.ViewModel.Administrator
 
         private void ExitExecute()
         {
+            AdministratorView administratorView = new AdministratorView(); 
+            administratorView.Show();
             IsAddedNewMaintenance = false;
             addNewMaintenanceView.Close();
         }
