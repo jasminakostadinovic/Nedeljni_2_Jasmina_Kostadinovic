@@ -204,6 +204,8 @@ namespace Healthcare_App.ViewModel.Registration
                         Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new patient with ID Card Number : '{UserData.IDCardNo}'");
                         MessageBox.Show("The new patient is sucessfully created.");
                     }
+                    MainWindow loginWindow = new MainWindow();
+                    loginWindow.Show();
                     registrationView.Close();
                     return;
                 }

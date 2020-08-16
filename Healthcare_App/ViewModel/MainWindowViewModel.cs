@@ -210,7 +210,7 @@ namespace Healthcare_App.ViewModel
 		{
 			if (!db.LoadDoctors().Any())
 			{
-				MessageBox.Show("You can not register as a patient at the moment. There is no available doctor. Please, try later."); loginView.Close();
+				MessageBox.Show("You can not register as a patient at the moment. There is no available doctor. Please, try later."); 
 				return;
 			}
 			RegistrationView registrateView = new RegistrationView();

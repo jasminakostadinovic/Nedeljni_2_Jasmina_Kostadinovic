@@ -321,7 +321,6 @@ namespace Healthcare_App.ViewModel.Administrator
                     MessageBox.Show("Something went wrong. New healthcare institution is not created.");
                     Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Fail to create the new healthcare institution.");
                 }
-
                 else
                 {
                     Logger.Instance.LogCRUD($"[{DateTime.Now.ToString("dd.MM.yyyy hh: mm")}] Created new healthcare institution with name : '{Name}'");
