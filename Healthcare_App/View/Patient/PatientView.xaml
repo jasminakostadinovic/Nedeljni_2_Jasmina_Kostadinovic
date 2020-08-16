@@ -24,7 +24,7 @@
         <Label Grid.Column="1" Grid.Row="3" Content="under construction..."  Foreground="White" HorizontalAlignment="Center"/>
         <Button Grid.Column="1" Grid.Row="5" Content="Logout" Name="btnLogout" HorizontalAlignment="Center" 
                 VerticalAlignment="Top" Width="120"  
-                Command="{Binding PatientLogout.Logout, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding LogoutPatient.Logout, UpdateSourceTrigger=PropertyChanged}"
                 Background="#545d6a" Foreground="White"/>
     </Grid>
 </Window>

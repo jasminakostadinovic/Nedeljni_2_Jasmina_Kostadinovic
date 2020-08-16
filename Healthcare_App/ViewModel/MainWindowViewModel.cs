@@ -2,9 +2,11 @@
 using Healthcare_App.Command;
 using Healthcare_App.View;
 using Healthcare_App.View.Administrator;
+using Healthcare_App.View.Doctor;
 using Healthcare_App.View.Maintenance;
 using Healthcare_App.View.Manager;
 using Healthcare_App.View.Master;
+using Healthcare_App.View.Patient;
 using Healthcare_App.View.Registration;
 using Healthcare_App.ViewModel.Administrator;
 using HealthcareData.Models;
@@ -148,9 +150,9 @@ namespace Healthcare_App.ViewModel
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicDoctor))
 					{
 						var doctor = db.LoadDoctorByUserDataId(userDataId);
-						//DoctorView doctorView = new DoctorView(doctor);
-						//loginView.Close();
-						//doctorView.Show();
+						DoctorView doctorView = new DoctorView();
+						loginView.Close();
+						doctorView.Show();
 						return;
 					}
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicMaintenance))
@@ -172,9 +174,9 @@ namespace Healthcare_App.ViewModel
 					if (validateHealthcareData.GetUserType(userDataId) == nameof(tblClinicPatient))
 					{
 						var patient = db.LoadPatientByUserDataId(userDataId);
-						//PatientView patientView = new PatientView(patient);
-						//loginView.Close();
-						//patientView.Show();
+						PatientView patientView = new PatientView();
+						loginView.Close();
+						patientView.Show();
 						return;
 					}
 				}

@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Healthcare_App.ViewModel.Doctor;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Healthcare_App.View.Doctor
 {
@@ -22,6 +11,7 @@ namespace Healthcare_App.View.Doctor
         public DoctorView()
         {
             InitializeComponent();
+            this.DataContext = new DoctorViewModel(this);
         }
     }
 }

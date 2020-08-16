@@ -73,6 +73,8 @@
     <Compile Include="ViewModel\Administrator\AddNewManagerViewModel.cs" />
     <Compile Include="ViewModel\Administrator\AdministratorViewModel.cs" />
     <Compile Include="ViewModel\Administrator\LogoutAdministrator.cs" />
+    <Compile Include="ViewModel\Doctor\DoctorViewModel.cs" />
+    <Compile Include="ViewModel\Doctor\LogoutDoctor.cs" />
     <Compile Include="ViewModel\Interfaces\ILogout.cs" />
     <Compile Include="ViewModel\Interfaces\ILogoutCommand.cs" />
     <Compile Include="ViewModel\Interfaces\IUserData.cs" />

@@ -1,10 +1,5 @@
 ﻿using Healthcare_App.View.Administrator;
 using Healthcare_App.ViewModel.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Healthcare_App.ViewModel.Administrator
 {
