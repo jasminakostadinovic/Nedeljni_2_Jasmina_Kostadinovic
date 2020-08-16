@@ -361,7 +361,7 @@ namespace HealthcareData.Repositories
                     return new List<tblClinicMaintenance>();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new List<tblClinicMaintenance>();
             }
