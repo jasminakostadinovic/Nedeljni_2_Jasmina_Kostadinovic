@@ -1,5 +1,6 @@
 ﻿using Healthcare_App.Command;
 using Healthcare_App.View.Manager;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using System;
@@ -31,16 +32,16 @@ namespace Healthcare_App.ViewModel.Manager
             managerId = manager.ClinicManagerID;
             maxDoctorsCount = manager.MaxCountOfDoctors;
             omissionCount = manager.OmissionsCount;
-        }
+            LogoutManager = new LogoutCommand(new LogoutManager(managerView));
+        }     
+        #endregion
 
+        #region Properies
+        public ILogoutCommand LogoutManager { get; set; }
         private List<tblClinicDoctor> LoadDoctors()
         {
             return db.LoadDoctors();
         }
-        #endregion
-
-        #region Properies
-    
         public tblClinicDoctor Doctor
         {
             get
@@ -107,34 +108,6 @@ namespace Healthcare_App.ViewModel.Manager
                 || omissionCount > 5)
                 return false;
             return true;
-        }
-
-
-        //logging out
-
-        private ICommand logout;
-        public ICommand Logout
-        {
-            get
-            {
-                if (logout == null)
-                {
-                    logout = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
-                }
-                return logout;
-            }
-        }
-
-        private bool CanExitExecute()
-        {
-            return true;
-        }
-
-        private void ExitExecute()
-        {
-            MainWindow loginWindow = new MainWindow();
-            managerView.Close();
-            loginWindow.Show();
         }
         #endregion
     }
