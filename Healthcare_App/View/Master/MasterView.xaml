@@ -28,7 +28,7 @@
                 Background="#545d6a" Foreground="White"/>
         <Button Grid.Column="1" Grid.Row="5" Content="Logout" Name="btnLogout" HorizontalAlignment="Center" 
                 VerticalAlignment="Top" Width="120"  
-                Command="{Binding Logout, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding LogoutMaster.Logout, UpdateSourceTrigger=PropertyChanged}"
                 Background="#545d6a" Foreground="White"/>
     </Grid>
 </Window>

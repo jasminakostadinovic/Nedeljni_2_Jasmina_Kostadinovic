@@ -1,5 +1,6 @@
 ﻿using Healthcare_App.Command;
 using Healthcare_App.View.Master;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Repositories;
 using System;
 using System.Linq;
@@ -15,10 +16,15 @@ namespace Healthcare_App.ViewModel.Master
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
         #endregion
 
+        #region Properties
+        public ILogoutCommand LogoutMaster { get; set; }
+        #endregion
+
         #region Constructor
         internal MasterViewModel(MasterView masterView)
         {
             this.masterView = masterView;
+            LogoutMaster = new LogoutCommand(new ExitMaster(masterView));
         }
         #endregion
 
@@ -61,30 +67,30 @@ namespace Healthcare_App.ViewModel.Master
        
         //closing the view
 
-        private ICommand logout;
-        public ICommand Logout
-        {
-            get
-            {
-                if (logout == null)
-                {
-                    logout = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
-                }
-                return logout;
-            }
-        }
+        //private ICommand logout;
+        //public ICommand Logout
+        //{
+        //    get
+        //    {
+        //        if (logout == null)
+        //        {
+        //            logout = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
+        //        }
+        //        return logout;
+        //    }
+        //}
 
-        private bool CanExitExecute()
-        {
-            return true;
-        }
+        //private bool CanExitExecute()
+        //{
+        //    return true;
+        //}
 
-        private void ExitExecute()
-        {
-            MainWindow loginWindow = new MainWindow();
-            masterView.Close();
-            loginWindow.Show();
-        }
+        //private void ExitExecute()
+        //{
+        //    MainWindow loginWindow = new MainWindow();
+        //    masterView.Close();
+        //    loginWindow.Show();
+        //}
         #endregion
     }
 }
