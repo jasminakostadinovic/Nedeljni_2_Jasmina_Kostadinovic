@@ -2,6 +2,7 @@
 using Healthcare_App.Command;
 using Healthcare_App.Loggers;
 using Healthcare_App.View.Administrator;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using System;
@@ -16,7 +17,7 @@ namespace Healthcare_App.ViewModel.Administrator
         private readonly AddNewClinicMaintenanceView addNewMaintenanceView;
         private tblClinicMaintenance maintenance;  
         private tblHealthcareUserData healthcareUserData;
-        private UserData userData;
+        private IValidatedUserData userData;
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
         public string[] permits = { "yes", "no" };
         public string[] responsibilities = { "For Disabled Access", "For Ambulance Access " };
@@ -24,7 +25,7 @@ namespace Healthcare_App.ViewModel.Administrator
         public string responsibility;
         #endregion
         #region Properties
-        public UserData UserData
+        public IValidatedUserData UserData
         {
             get
             {
@@ -155,7 +156,7 @@ namespace Healthcare_App.ViewModel.Administrator
                 healthcareUserData.Surname = UserData.Surname;
                 healthcareUserData.IDCardNo = UserData.IDCardNo;
                 healthcareUserData.Sex = UserData.Sex;
-                healthcareUserData.DateOfBirth = UserData.dateDateValue;
+                healthcareUserData.DateOfBirth = UserData.DateDateValue;
                 healthcareUserData.Citizenship = UserData.Citizenship;
                 healthcareUserData.Username = UserData.Username;
                 healthcareUserData.Password = SecurePasswordHasher.Hash(UserData.Password);

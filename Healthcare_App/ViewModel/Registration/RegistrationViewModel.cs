@@ -2,6 +2,7 @@
 using Healthcare_App.Command;
 using Healthcare_App.Loggers;
 using Healthcare_App.View.Registration;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using HealthcareData.Validations;
@@ -19,7 +20,7 @@ namespace Healthcare_App.ViewModel.Registration
         private readonly RegistrationView registrationView;
         private tblClinicPatient patient;
         private tblHealthcareUserData healthcareUserData;
-        private UserData userData;
+        private IValidatedUserData userData;
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
         private List<tblClinicDoctor> doctors;
         private tblClinicDoctor doctor;
@@ -62,7 +63,7 @@ namespace Healthcare_App.ViewModel.Registration
                 OnPropertyChanged(nameof(Doctors));
             }
         }
-        public UserData UserData
+        public IValidatedUserData UserData
         {
             get
             {
@@ -177,7 +178,7 @@ namespace Healthcare_App.ViewModel.Registration
                 healthcareUserData.Surname = UserData.Surname;
                 healthcareUserData.IDCardNo = UserData.IDCardNo;
                 healthcareUserData.Sex = UserData.Sex;
-                healthcareUserData.DateOfBirth = UserData.dateDateValue;
+                healthcareUserData.DateOfBirth = UserData.DateDateValue;
                 healthcareUserData.Citizenship = UserData.Citizenship;
                 healthcareUserData.Username = UserData.Username;
                 healthcareUserData.Password = SecurePasswordHasher.Hash(UserData.Password);

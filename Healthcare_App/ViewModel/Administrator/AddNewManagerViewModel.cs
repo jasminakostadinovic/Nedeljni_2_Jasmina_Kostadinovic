@@ -2,16 +2,11 @@
 using Healthcare_App.Command;
 using Healthcare_App.Loggers;
 using Healthcare_App.View.Administrator;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
-using HealthcareData.Validations;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -23,7 +18,7 @@ namespace Healthcare_App.ViewModel.Administrator
         private readonly AddNewManagerView  addNewManagerView;
         private tblClinicManager manager;    
         private tblHealthcareUserData healthcareUserData;
-        private UserData userData;
+        private IValidatedUserData userData;
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
         private string floorNumber;
         private int floorNumberValue;
@@ -86,7 +81,7 @@ namespace Healthcare_App.ViewModel.Administrator
                 OnPropertyChanged(nameof(Manager));
             }
         }
-        public UserData UserData
+        public IValidatedUserData UserData
         {
             get
             {
@@ -204,7 +199,7 @@ namespace Healthcare_App.ViewModel.Administrator
                 healthcareUserData.Surname = UserData.Surname;
                 healthcareUserData.IDCardNo = UserData.IDCardNo;
                 healthcareUserData.Sex = UserData.Sex;
-                healthcareUserData.DateOfBirth = UserData.dateDateValue;
+                healthcareUserData.DateOfBirth = UserData.DateDateValue;
                 healthcareUserData.Citizenship = UserData.Citizenship;
                 healthcareUserData.Username = UserData.Username;
                 healthcareUserData.Password = SecurePasswordHasher.Hash(UserData.Password);

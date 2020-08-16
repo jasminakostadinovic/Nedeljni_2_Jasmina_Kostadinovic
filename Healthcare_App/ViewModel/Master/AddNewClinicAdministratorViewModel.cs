@@ -2,6 +2,7 @@
 using Healthcare_App.Command;
 using Healthcare_App.Loggers;
 using Healthcare_App.View.Master;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using System;
@@ -17,7 +18,7 @@ namespace Healthcare_App.ViewModel.Master
         private tblClinicAdministrator administrator;     
         private tblHealthcareUserData healthcareUserData;
         private readonly HealtcareDBRepository db = new HealtcareDBRepository();
-        private UserData userData;
+        private IValidatedUserData userData;
         #endregion
         #region Properties
         public bool IsAddedNewAdministrator { get; internal set; }
@@ -34,7 +35,7 @@ namespace Healthcare_App.ViewModel.Master
                 OnPropertyChanged(nameof(Administrator));
             }
         }
-        public UserData UserData
+        public IValidatedUserData UserData
         {
             get
             {
@@ -95,7 +96,7 @@ namespace Healthcare_App.ViewModel.Master
                 healthcareUserData.Surname = UserData.Surname;
                 healthcareUserData.IDCardNo = UserData.IDCardNo;
                 healthcareUserData.Sex = UserData.Sex;
-                healthcareUserData.DateOfBirth = UserData.dateDateValue;
+                healthcareUserData.DateOfBirth = UserData.DateDateValue;
                 healthcareUserData.Citizenship = UserData.Citizenship;
                 healthcareUserData.Username = UserData.Username;
                 healthcareUserData.Password = SecurePasswordHasher.Hash(UserData.Password);

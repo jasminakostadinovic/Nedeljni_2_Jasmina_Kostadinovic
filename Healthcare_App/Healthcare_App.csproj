@@ -77,6 +77,7 @@
     <Compile Include="ViewModel\Interfaces\ILogout.cs" />
     <Compile Include="ViewModel\Interfaces\ILogoutCommand.cs" />
     <Compile Include="ViewModel\Interfaces\IUserData.cs" />
+    <Compile Include="ViewModel\Interfaces\IValidatedUserData.cs" />
     <Compile Include="ViewModel\Maintenance\LogoutMaintenance.cs" />
     <Compile Include="ViewModel\Maintenance\MaintenanceViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />

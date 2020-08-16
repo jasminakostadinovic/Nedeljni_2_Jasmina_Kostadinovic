@@ -1,12 +1,12 @@
 ﻿using DataValidations;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Validations;
 using System;
-using System.ComponentModel;
 using System.Globalization;
 
 namespace Healthcare_App.ViewModel
 {
-    class UserData : ViewModelBase, IDataErrorInfo
+    class UserData : ViewModelBase, IValidatedUserData
     {
         #region Fields
         private string surname;
@@ -34,6 +34,18 @@ namespace Healthcare_App.ViewModel
         #endregion
 
         #region Properties
+        public DateTime DateDateValue
+        {
+            get
+            {
+                return dateDateValue;
+            }
+            set
+            {
+                if (dateDateValue == value) return;
+                dateDateValue = value;
+            }
+        }
         public bool CanSave { get; set; }
         public string DateOfBirth
         {
