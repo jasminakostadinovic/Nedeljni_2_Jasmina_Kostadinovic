@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Healthcare_App.Loggers
 {
@@ -9,7 +7,6 @@ namespace Healthcare_App.Loggers
     {
         private static readonly Logger _instance;
         private readonly string _filePath = @"..\Log.txt";
-        private static readonly string managerFilePath = @"..\“ManagerAccess.txt";
         private static readonly Random random = new Random()
 
 ;        //a private constructor provides that constructor can be called only inside this class
@@ -17,8 +14,6 @@ namespace Healthcare_App.Loggers
         {
             if (!File.Exists(_filePath))
                 File.Create(_filePath).Close();
-            if (!File.Exists(managerFilePath))
-                File.Create(managerFilePath).Close();
         }
         //a static constructor is called only once, so we will have only one instance of this class
         static Logger()
@@ -41,19 +36,6 @@ namespace Healthcare_App.Loggers
             {
                 sw.WriteLine(message);
             }
-        }
-
-        public List<string> GetManagerCodes()
-        {
-            try
-            {
-                return File.ReadAllLines(managerFilePath).ToList();
-            }
-            catch (Exception)
-            {
-                return new List<string>();
-            }
-
         }
     }
 }
