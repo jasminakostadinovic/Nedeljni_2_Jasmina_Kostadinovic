@@ -1,0 +1,120 @@
+﻿<Window x:Class="Healthcare_App.View.Administrator.AdministratorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Title="Administrator" Background="#2e3137" Height="520" Width="850" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="1" Grid.Row="3" Name="lblName" Content="Clinic Maintenances:" Padding="0" HorizontalAlignment="left" Foreground="White"/>
+
+        <DataGrid Grid.Column="1" Grid.Row="5" Name="ClinicMaintenanceGrid" AutoGenerateColumns="True" HorizontalAlignment="Center" 
+                  IsReadOnly="True" Height="100" VerticalAlignment="Top" 
+                  Width="790" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
+                  ItemsSource="{Binding ClinicMaintenances}" SelectedItem="{Binding ClinicMaintenance}" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn  Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="btnDelete" Content="Delete"  HorizontalAlignment="Right"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                              Path=DataContext.DeleteClinicMaintenance}"
+                            CommandParameter="{Binding}"/>
+                                <Button Name="btnUpdate" Content="Update"  HorizontalAlignment="Left"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                              Path=DataContext.UpdateClinicMaintenance}"
+                            CommandParameter="{Binding}"/>
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label Grid.Column="1" Grid.Row="7" Name="lblIn" Content="Healtcare Istitution:" Padding="0" HorizontalAlignment="Left" Foreground="White"/>
+
+        <DataGrid Grid.Column="1" Grid.Row="9" Name="HealtcareIstitutionGrid" AutoGenerateColumns="True" HorizontalAlignment="Center" 
+                  IsReadOnly="True" Height="100" VerticalAlignment="Top" 
+                  Width="790" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
+                  ItemsSource="{Binding HealtcareIstitutions}" SelectedItem="{Binding HealtcareIstitution}" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn  Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">                           
+                                <Button Name="btnUpdate" Content="Update"  HorizontalAlignment="Left"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                              Path=DataContext.UpdateHealtcareIstitution}"
+                            CommandParameter="{Binding}"/>
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Label Grid.Column="1" Grid.Row="11" Content="Clinic Managers:" Padding="0" HorizontalAlignment="Left" Foreground="White"/>
+
+        <DataGrid Grid.Column="1" Grid.Row="13" Name="ManagersGrid" AutoGenerateColumns="True" HorizontalAlignment="Center" 
+                  IsReadOnly="True" Height="100" VerticalAlignment="Top" 
+                  Width="790" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn"
+                  ItemsSource="{Binding Managers}" SelectedItem="{Binding Manager}" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn  Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Name="btnUpdate" Content="Update"  HorizontalAlignment="Left"
+                            Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}},
+                                              Path=DataContext.UpdateHealtcareIstitution}"
+                            CommandParameter="{Binding}"/>
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Grid.Column="1" Grid.Row="1" Content="Add New Clinic Maintenance" Name="btnAddNewClinicMaintenance" HorizontalAlignment="Left" 
+                VerticalAlignment="Top" Width="auto"  
+                Command="{Binding AddNewClinicMaintenance, UpdateSourceTrigger=PropertyChanged}"
+                Background="#545d6a" Foreground="White"/>
+        
+        <Button Grid.Column="1" Grid.Row="1" Content="Add New Clinic Manager" Name="btnAddNewClinicManager" HorizontalAlignment="Center" 
+                VerticalAlignment="Top" Width="auto"  
+                Command="{Binding AddNewManager, UpdateSourceTrigger=PropertyChanged}"
+                Background="#545d6a" Foreground="White"/>
+
+        <Button Grid.Column="1" Grid.Row="1" Content="Logout" Name="btnLogout" HorizontalAlignment="Right" 
+                VerticalAlignment="Top" Width="auto"  
+                Command="{Binding LogoutAdministrator.Logout, UpdateSourceTrigger=PropertyChanged}"
+                Background="#545d6a" Foreground="White"/>
+    </Grid>
+</Window>
