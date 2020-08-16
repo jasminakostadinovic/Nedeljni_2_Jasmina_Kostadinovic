@@ -114,7 +114,7 @@
 
         <Button Grid.Column="1" Grid.Row="1" Content="Logout" Name="btnLogout" HorizontalAlignment="Right" 
                 VerticalAlignment="Top" Width="auto"  
-                Command="{Binding Logout, UpdateSourceTrigger=PropertyChanged}"
+                Command="{Binding LogoutAdministrator.Logout, UpdateSourceTrigger=PropertyChanged}"
                 Background="#545d6a" Foreground="White"/>
     </Grid>
 </Window>

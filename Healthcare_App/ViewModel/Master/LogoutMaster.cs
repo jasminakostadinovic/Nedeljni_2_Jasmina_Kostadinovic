@@ -1,21 +1,22 @@
-﻿using Healthcare_App.ViewModel.Interfaces;
+﻿using Healthcare_App.View.Master;
+using Healthcare_App.ViewModel.Interfaces;
 
-namespace Healthcare_App.View.Master
+namespace Healthcare_App.ViewModel.Master
 {
-    class ExitMaster : IExit
+    class LogoutMaster : ILogout
     {
         readonly MasterView masterView;
-        public ExitMaster(MasterView masterView)
+        public LogoutMaster(MasterView masterView)
         {
             this.masterView = masterView;
         }
 
-        public bool CanExitExecute()
+        public bool CanLogoutExecute()
         {
             return true;
         }
 
-        public void ExitExecute()
+        public void LogoutExecute()
         {
             MainWindow loginWindow = new MainWindow();
             masterView.Close();

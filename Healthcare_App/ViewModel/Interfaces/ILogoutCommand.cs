@@ -2,7 +2,7 @@
 
 namespace Healthcare_App.ViewModel.Interfaces
 {
-    interface ILogoutCommand : IExit
+    interface ILogoutCommand : ILogout
     {
         ICommand Logout { get; }
     }

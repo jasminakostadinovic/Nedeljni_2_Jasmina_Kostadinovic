@@ -72,7 +72,8 @@
     <Compile Include="ViewModel\Administrator\AddNewHealthcareInstitutionViewModel.cs" />
     <Compile Include="ViewModel\Administrator\AddNewManagerViewModel.cs" />
     <Compile Include="ViewModel\Administrator\AdministratorViewModel.cs" />
-    <Compile Include="ViewModel\Interfaces\IExit.cs" />
+    <Compile Include="ViewModel\Administrator\LogoutAdministrator.cs" />
+    <Compile Include="ViewModel\Interfaces\ILogout.cs" />
     <Compile Include="ViewModel\Interfaces\ILogoutCommand.cs" />
     <Compile Include="ViewModel\Interfaces\IUserData.cs" />
     <Compile Include="ViewModel\Maintenance\MaintenanceViewModel.cs" />
@@ -113,7 +114,7 @@
     <Compile Include="View\Master\AddNewClinicAdministratorView.xaml.cs">
       <DependentUpon>AddNewClinicAdministratorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Master\ExitMaster.cs" />
+    <Compile Include="ViewModel\Master\LogoutMaster.cs" />
     <Compile Include="View\Master\MasterView.xaml.cs">
       <DependentUpon>MasterView.xaml</DependentUpon>
     </Compile>

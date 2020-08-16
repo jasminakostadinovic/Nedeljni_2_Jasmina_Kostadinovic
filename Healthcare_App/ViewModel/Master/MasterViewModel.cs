@@ -24,7 +24,7 @@ namespace Healthcare_App.ViewModel.Master
         internal MasterViewModel(MasterView masterView)
         {
             this.masterView = masterView;
-            LogoutMaster = new LogoutCommand(new ExitMaster(masterView));
+            LogoutMaster = new LogoutCommand(new LogoutMaster(masterView));
         }
         #endregion
 
@@ -64,33 +64,6 @@ namespace Healthcare_App.ViewModel.Master
                 return false;
             return true;
         }
-       
-        //closing the view
-
-        //private ICommand logout;
-        //public ICommand Logout
-        //{
-        //    get
-        //    {
-        //        if (logout == null)
-        //        {
-        //            logout = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
-        //        }
-        //        return logout;
-        //    }
-        //}
-
-        //private bool CanExitExecute()
-        //{
-        //    return true;
-        //}
-
-        //private void ExitExecute()
-        //{
-        //    MainWindow loginWindow = new MainWindow();
-        //    masterView.Close();
-        //    loginWindow.Show();
-        //}
         #endregion
     }
 }

@@ -1,11 +1,11 @@
 ﻿using Healthcare_App.Command;
 using Healthcare_App.View;
 using Healthcare_App.View.Administrator;
+using Healthcare_App.ViewModel.Interfaces;
 using HealthcareData.Models;
 using HealthcareData.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -34,10 +34,12 @@ namespace Healthcare_App.ViewModel.Administrator
             HealtcareIstitutions = db.LoadHealthcareInstitutions();
             Manager = new tblClinicManager();
             Managers = db.LoadManagers();
+            LogoutAdministrator = new LogoutCommand(new LogoutAdministrator(adminView));
         }
         #endregion
 
         #region Properies
+        public ILogoutCommand LogoutAdministrator { get; set; }
         public List<tblClinicManager> Managers
         {
             get
@@ -228,32 +230,33 @@ namespace Healthcare_App.ViewModel.Administrator
         {
             return true;
         }
+
         //logging out
 
-        private ICommand logout;
-        public ICommand Logout
-        {
-            get
-            {
-                if (logout == null)
-                {
-                    logout = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
-                }
-                return logout;
-            }
-        }
+        //private ICommand logout;
+        //public ICommand Logout
+        //{
+        //    get
+        //    {
+        //        if (logout == null)
+        //        {
+        //            logout = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
+        //        }
+        //        return logout;
+        //    }
+        //}
 
-        private bool CanExitExecute()
-        {
-            return true;
-        }
+        //private bool CanExitExecute()
+        //{
+        //    return true;
+        //}
 
-        private void ExitExecute()
-        {
-            MainWindow loginWindow = new MainWindow();
-            adminView.Close();
-            loginWindow.Show();
-        }
+        //private void ExitExecute()
+        //{
+        //    MainWindow loginWindow = new MainWindow();
+        //    adminView.Close();
+        //    loginWindow.Show();
+        //}
         #endregion
     }
 }

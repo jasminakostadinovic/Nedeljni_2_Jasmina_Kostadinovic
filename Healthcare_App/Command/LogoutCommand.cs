@@ -5,11 +5,11 @@ namespace Healthcare_App.Command
 {
     class LogoutCommand : ILogoutCommand
     {
-        public IExit Exit { get; set; }
+        public ILogout Exit { get; set; }
 
         private ICommand logout;
 
-        public LogoutCommand(IExit exit)
+        public LogoutCommand(ILogout exit)
         {
             Exit = exit;
         }
@@ -20,20 +20,20 @@ namespace Healthcare_App.Command
             {
                 if (logout == null)
                 {
-                    logout = new RelayCommand(param => ExitExecute(), param => CanExitExecute());
+                    logout = new RelayCommand(param => LogoutExecute(), param => CanLogoutExecute());
                 }
                 return logout;
             }
         }
      
-        public bool CanExitExecute()
+        public bool CanLogoutExecute()
         {
-            return Exit.CanExitExecute();
+            return Exit.CanLogoutExecute();
         }
 
-        public void ExitExecute()
+        public void LogoutExecute()
         {
-            Exit.ExitExecute();
+            Exit.LogoutExecute();
         }
     }
 }
